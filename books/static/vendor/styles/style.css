@@ -1,0 +1,32 @@
+.nav-col, .categories-col, .main-col {
+    background: rgb(191, 63, 63);
+    padding: 15px;
+}
+
+.categories-col, .main-col {
+    margin: 25px;
+    box-shadow: 5px 5px 2px grey;
+}
+
+.flex-column {
+    background: rgb(240,240,240);
+    height: 100%;
+}
+
+.flex-column a {
+    color: black;
+}
+
+.flex-column a:hover {
+    color: white;
+    background: rgb(191, 63, 63);
+}
+
+.carousel-item {
+    padding-top: 20px;
+    background: rgb(240,240,240);
+}
+
+.carousel-item .container-fluid .row .col img {
+    box-shadow: 5px 5px 2px grey;
+}

@@ -1,0 +1,58 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en" ng-app="MyApp">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="{% static 'vendor/bootstrap/bower_components/bootstrap/dist/css/bootstrap.min.css' %}">
+    <!-- Custom CSS  -->
+    <link rel="stylesheet" href="{% static 'vendor/styles/style.css' %}">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="{% static 'vendor/fontawesome/bower_components/font-awesome/css/font-awesome.min.css' %}">
+  </head>
+  <body>
+
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-12 nav-col">
+          <nav class="navbar navbar-light bg-faded">
+            <a class="navbar-brand" href="#">
+              <img src="{% static 'images/brand/open-book.svg' %}" width="30" height="30" class="d-inline-block align-top" alt="">
+              Food For Thought
+            </a>
+          </nav>
+        </div>
+      </div>
+    </div>
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col categories-col">
+            <ul class="nav flex-column">
+              <li class="nav-item">
+                <a class="nav-link" href="#">Books</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="#">Authors</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="#">Latest Arrivals</a>
+              </li>
+            </ul>
+        </div>
+        <div class="col-8 main-col">
+          {% block content %}{% endblock %}
+        </div>
+      </div>
+    </div>
+
+    <!-- jQuery first, then Tether, then Bootstrap JS. -->
+    <script src="{% static 'vendor/bootstrap/bower_components/jquery/dist/jquery.min.js' %}"></script>
+    <script src="{% static 'vendor/bootstrap/bower_components/bootstrap/dist/js/bootstrap.min.js' %}"></script>
+    <script src="{% static 'vendor/angular/bower_components/angular/angular.min.js' %}"></script>
+    <script src="{% static 'vendor/angular/bower_components/angular/app.js' %}"></script>
+  </body>
+</html>
