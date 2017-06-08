@@ -1,0 +1,9 @@
+env
+*.pyc
+staticfiles
+.env
+db.sqlite3
+grunt
+*.less
+node_modules
+nuget
