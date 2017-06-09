@@ -30,3 +30,13 @@
 .carousel-item .container-fluid .row .col img {
     box-shadow: 5px 5px 2px grey;
 }
+
+.btn-outline-primary {
+    border-color: rgb(191, 63, 63);
+    color: black;
+}
+
+.form-inline button:hover {
+    background: rgb(191, 63, 63);
+    border-color: rgb(191, 63, 63);
+}

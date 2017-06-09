@@ -1,6 +1,6 @@
 {% extends 'base.html' %}
 {% load static %}
-
+{% load book_feature %}
 {% block content %}
 
 <div class="heading-top">
@@ -17,99 +17,66 @@
     <div class="carousel-item active">
       <div class="container-fluid">
         <div class="row">
+        {% for recomended in recomended_books|cut_array:'3,0' %}
           <div class="col">
-          <img class="d-block img-fluid" src="{% static 'images/book-images/cats_cradle.jpg' %}" alt="First slide">
-          <b class="hidden-md-down">Rating</b>&nbsp;
-          <i class="fa fa-star" aria-hidden="true"></i>
-          <i class="fa fa-star" aria-hidden="true"></i>
-          <i class="fa fa-star" aria-hidden="true"></i>
-          <i class="fa fa-star" aria-hidden="true"></i>
-          <i class="fa fa-star-o" aria-hidden="true"></i>
-          </div> 
-          <div class="col">
-          <img class="d-block img-fluid" src="{% static 'images/book-images/cats_cradle.jpg' %}" alt="First slide">
-          <b class="hidden-md-down">Rating</b>&nbsp;
-          <i class="fa fa-star" aria-hidden="true"></i>
-          <i class="fa fa-star" aria-hidden="true"></i>
-          <i class="fa fa-star" aria-hidden="true"></i>
-          <i class="fa fa-star" aria-hidden="true"></i>
-          <i class="fa fa-star-o" aria-hidden="true"></i>
-          </div> 
-          <div class="col">
-          <img class="d-block img-fluid" src="{% static 'images/book-images/cats_cradle.jpg' %}" alt="First slide">
-          <b class="hidden-md-down">Rating</b>&nbsp;
-          <i class="fa fa-star" aria-hidden="true"></i>
-          <i class="fa fa-star" aria-hidden="true"></i>
-          <i class="fa fa-star" aria-hidden="true"></i>
-          <i class="fa fa-star" aria-hidden="true"></i>
-          <i class="fa fa-star-o" aria-hidden="true"></i>
-          </div> 
+            <figure class="figure">
+              <img class="figure-img rounded" height="324" width="220" src={{recomended.book_image | img_src}}>
+              <figcaption class="figure-caption">
+                <b class="hidden-md-down">Rating</b>&nbsp;
+                {% for i in recomended.book_rating|range %}
+                <i class="fa fa-star" aria-hidden="true"></i>
+                {% endfor %}
+                {% for i in recomended.book_rating|stars_off %}
+                <i class="fa fa-star-o" aria-hidden="true"></i>
+                {% endfor %}
+              </figcaption>
+            </figure>
+          </div>
+        {% endfor %}
         </div>
       </div>
     </div>
     <div class="carousel-item">
       <div class="container-fluid">
         <div class="row">
+        {% for recomended in recomended_books|cut_array:'6,3' %}
           <div class="col">
-          <img class="d-block img-fluid" src="{% static 'images/book-images/cats_cradle.jpg' %}" alt="First slide">
-          <b class="hidden-md-down">Rating</b>&nbsp;
-          <i class="fa fa-star" aria-hidden="true"></i>
-          <i class="fa fa-star" aria-hidden="true"></i>
-          <i class="fa fa-star" aria-hidden="true"></i>
-          <i class="fa fa-star" aria-hidden="true"></i>
-          <i class="fa fa-star-o" aria-hidden="true"></i>
-          </div> 
-          <div class="col">
-          <img class="d-block img-fluid" src="{% static 'images/book-images/cats_cradle.jpg' %}" alt="First slide">
-          <b class="hidden-md-down">Rating</b>&nbsp;
-          <i class="fa fa-star" aria-hidden="true"></i>
-          <i class="fa fa-star" aria-hidden="true"></i>
-          <i class="fa fa-star" aria-hidden="true"></i>
-          <i class="fa fa-star" aria-hidden="true"></i>
-          <i class="fa fa-star-o" aria-hidden="true"></i>
-          </div> 
-          <div class="col">
-          <img class="d-block img-fluid" src="{% static 'images/book-images/cats_cradle.jpg' %}" alt="First slide">
-          <b class="hidden-md-down">Rating</b>&nbsp;
-          <i class="fa fa-star" aria-hidden="true"></i>
-          <i class="fa fa-star" aria-hidden="true"></i>
-          <i class="fa fa-star" aria-hidden="true"></i>
-          <i class="fa fa-star" aria-hidden="true"></i>
-          <i class="fa fa-star-o" aria-hidden="true"></i>          
-          </div> 
+            <figure class="figure">
+              <img class="figure-img rounded" height="324" width="220" src={{recomended.book_image | img_src}}>
+              <figcaption class="figure-caption">
+              <b class="hidden-md-down">Rating</b>&nbsp;
+              {% for i in recomended.book_rating|range %}
+              <i class="fa fa-star" aria-hidden="true"></i>
+              {% endfor %}
+              {% for i in recomended.book_rating|stars_off %}
+              <i class="fa fa-star-o" aria-hidden="true"></i>
+              {% endfor %}
+              </figcaption>
+            </figure>
+          </div>
+        {% endfor %}
         </div>
       </div>
     </div>
     <div class="carousel-item">
       <div class="container-fluid">
         <div class="row">
+        {% for recomended in recomended_books|cut_array:'9,6' %}
           <div class="col">
-          <img class="d-block img-fluid" src="{% static 'images/book-images/cats_cradle.jpg' %}" alt="First slide">
-          <b class="hidden-md-down">Rating</b>&nbsp;
-          <i class="fa fa-star" aria-hidden="true"></i>
-          <i class="fa fa-star" aria-hidden="true"></i>
-          <i class="fa fa-star" aria-hidden="true"></i>
-          <i class="fa fa-star" aria-hidden="true"></i>
-          <i class="fa fa-star-o" aria-hidden="true"></i>
-          </div> 
-          <div class="col">
-          <img class="d-block img-fluid" src="{% static 'images/book-images/cats_cradle.jpg' %}" alt="First slide">
-          <b class="hidden-md-down">Rating</b>&nbsp;
-          <i class="fa fa-star" aria-hidden="true"></i>
-          <i class="fa fa-star" aria-hidden="true"></i>
-          <i class="fa fa-star" aria-hidden="true"></i>
-          <i class="fa fa-star" aria-hidden="true"></i>
-          <i class="fa fa-star-o" aria-hidden="true"></i>
-          </div> 
-          <div class="col">
-          <img class="d-block img-fluid" src="{% static 'images/book-images/cats_cradle.jpg' %}" alt="First slide">
-          <b class="hidden-md-down">Rating</b>&nbsp;
-          <i class="fa fa-star" aria-hidden="true"></i>
-          <i class="fa fa-star" aria-hidden="true"></i>
-          <i class="fa fa-star" aria-hidden="true"></i>
-          <i class="fa fa-star" aria-hidden="true"></i>
-          <i class="fa fa-star-o" aria-hidden="true"></i>
-          </div> 
+            <figure class="figure">
+              <img class="figure-img rounded" height="324" width="220" src={{recomended.book_image | img_src}}>
+              <figcaption class="figure-caption">
+              <b class="hidden-md-down">Rating</b>&nbsp;
+              {% for i in recomended.book_rating|range %}
+              <i class="fa fa-star" aria-hidden="true"></i>
+              {% endfor %}
+              {% for i in recomended.book_rating|stars_off %}
+              <i class="fa fa-star-o" aria-hidden="true"></i>
+              {% endfor %}
+              </figcaption>
+            </figure>
+          </div>
+        {% endfor %}
         </div>
       </div>
     </div>
