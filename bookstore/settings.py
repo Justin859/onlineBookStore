@@ -40,6 +40,8 @@ INSTALLED_APPS = (
     'books'
 )
 
+SESSION_ENGINE = "django.contrib.sessions.backends.file"
+
 MIDDLEWARE_CLASSES = (
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',

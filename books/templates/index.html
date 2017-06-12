@@ -8,17 +8,13 @@
 </div>
 
 <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
-  <ol class="carousel-indicators">
-    <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
-    <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
-    <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
-  </ol>
   <div class="carousel-inner" role="listbox">
     <div class="carousel-item active">
       <div class="container-fluid">
         <div class="row">
         {% for recomended in recomended_books|cut_array:'3,0' %}
           <div class="col">
+            <a href="book/{{recomended.book_title}}">
             <figure class="figure">
               <img class="figure-img rounded" height="324" width="220" src={{recomended.book_image | img_src}}>
               <figcaption class="figure-caption">
@@ -31,6 +27,7 @@
                 {% endfor %}
               </figcaption>
             </figure>
+            </a>
           </div>
         {% endfor %}
         </div>
@@ -41,8 +38,9 @@
         <div class="row">
         {% for recomended in recomended_books|cut_array:'6,3' %}
           <div class="col">
-            <figure class="figure">
-              <img class="figure-img rounded" height="324" width="220" src={{recomended.book_image | img_src}}>
+            <a href="book/{{recomended.book_title}}">
+            <figure class="figure detail-item">
+              <img class="figure-img rounded" height="324" width="220" src={{recomended.book_image | img_src}}></a>
               <figcaption class="figure-caption">
               <b class="hidden-md-down">Rating</b>&nbsp;
               {% for i in recomended.book_rating|range %}
@@ -53,6 +51,7 @@
               {% endfor %}
               </figcaption>
             </figure>
+            </a>
           </div>
         {% endfor %}
         </div>
@@ -63,6 +62,7 @@
         <div class="row">
         {% for recomended in recomended_books|cut_array:'9,6' %}
           <div class="col">
+            <a href="book/{{recomended.book_title}}">
             <figure class="figure">
               <img class="figure-img rounded" height="324" width="220" src={{recomended.book_image | img_src}}>
               <figcaption class="figure-caption">
@@ -75,6 +75,7 @@
               {% endfor %}
               </figcaption>
             </figure>
+            </a>
           </div>
         {% endfor %}
         </div>

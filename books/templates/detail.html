@@ -1,0 +1,66 @@
+{% extends "base.html" %}
+{% load static %}
+{% load book_feature %}
+
+{% block content %}
+    {% if messages %}
+        {% for message in messages %}
+            <div class="alert alert-info alert-dismissible fade show" role="alert">
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <strong>{{ message }}</strong> 
+            </div>
+        {% endfor %}
+    {% endif %}
+<div class="container-fluid">
+    <div class="row book-detail">
+        <div class="col-6">
+            <ul class="list-unstyled">
+                <li>
+                    <figure class="figure">
+                        <img class="figure-img rounded" height="324" width="220" src=../../{{book.book_image | img_src}}>
+                    </figure>
+                </li>
+                <form action="" method="post">
+                    {% csrf_token %}
+                    {% if book.book_quantity != 0 %}
+                    <button class="btn btn-primary" type="submit">Add to Cart&nbsp;&nbsp;<i class="fa fa-cart-plus fa-lg"></i></button>
+                    {% else %}
+                    <button class="btn btn-primary" disabled="true" type="submit">Add to Cart&nbsp;&nbsp;<i class="fa fa-cart-plus fa-lg"></i></button>
+                    {% endif %}
+                </form>
+            </ul>
+        </div>
+        <div class="col-6">
+            <ul class="list-unstyled">
+                <li><strong>Title</strong>:<div class="pull-right">{{book.book_title}}</div></li>
+                <li><strong>Author</strong>:<div class="pull-right">{{book.book_author}}</div></li>
+                <li><strong>Genre</strong>:<div class="pull-right">{{book.book_category}}</div></li>
+                <li><strong>Book Rating</strong>
+                    <div class="pull-right">
+                        {% for i in book.book_rating|range %}
+                        <i class="fa fa-star" aria-hidden="true"></i>
+                        {% endfor %}
+                        {% for i in book.book_rating|stars_off %}
+                        <i class="fa fa-star-o" aria-hidden="true"></i>
+                        {% endfor %}
+                    </div>
+                </li>
+                <li><strong>Price</strong>:<div class="pull-right">{{book.book_price}}</div></li>
+                <li><strong>In Stock</strong>:
+                <div class="pull-right">
+                {% if book.book_quantity != 0 %}
+                Yes
+                {% else %}
+                No
+                {% endif %}
+                </div>
+                </li>
+                <hr>
+                <li>{{book.book_description | markdown_to_html}}</li>
+            </ul>
+        </div>
+    </div>
+</div>
+{% endblock %}

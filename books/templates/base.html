@@ -30,10 +30,10 @@
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
               <ul class="navbar-nav mr-auto">
                 <li class="nav-item active">
-                  <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+                  <a class="nav-link" href="/">Home <span class="sr-only">(current)</span></a>
                 </li>
                 <li class="nav-item">
-                  <a class="nav-link" href="#">Link</a>
+                  <a class="nav-link" href="/cart">Cart ({{cart_total}})</a>
                 </li>
                 <li class="nav-item">
                   <a class="nav-link disabled" href="#">Disabled</a>
@@ -53,7 +53,7 @@
         <div class="col categories-col">
             <ul class="nav flex-column">
               <li class="nav-item">
-                <a class="nav-link" href="#">Books</a>
+                <a class="nav-link" href="#">Library</a>
               </li>
               <li class="nav-item">
                 <a class="nav-link" href="#">Authors</a>
@@ -61,6 +61,14 @@
               <li class="nav-item">
                 <a class="nav-link" href="#">Latest Arrivals</a>
               </li>
+              <li class="nav-item">
+                <a class="nav-link" href="#">Categories</a>
+              </li>
+              <ul>
+                {% for item in categories %}
+                <li><a class="nav-link" href="#">{{item.0}}</a></li>
+                {% endfor %}
+              </ul>
             </ul>
         </div>
         <div class="col-8 main-col">

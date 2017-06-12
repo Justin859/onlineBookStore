@@ -12,4 +12,6 @@ import books.views
 urlpatterns = [
     url(r'^$', books.views.index, name='index'),
     url(r'^admin/', include(admin.site.urls)),
+    url(r'book/(?P<book_title>[\w\s\']+)/$', books.views.book_detail, name='book_detail'),
+    url(r'^cart/', books.views.cart, name='cart'),
 ]

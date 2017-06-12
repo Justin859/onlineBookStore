@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+{% load static %}
+{% load book_feature %}
+
+{% block content %}
+<ul>
+{% for bkey,bvalue in cart_books.items %}
+    <li>Title: {{bvalue.book_title}} - Price: {{bvalue.book_price}} Quantity: {{bvalue.book_quantity}}</li>
+{% endfor %}
+</ul>
+{% endblock %}

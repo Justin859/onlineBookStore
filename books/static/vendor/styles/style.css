@@ -27,8 +27,17 @@
     background: rgb(240,240,240);
 }
 
-.carousel-item .container-fluid .row .col img {
+.book-detail {
+    padding: 20px;
+    background: rgb(240,240,240);
+}
+
+figure img {
     box-shadow: 5px 5px 2px grey;
+}
+
+a figure img:hover {
+    box-shadow: 0px 0px 0px;
 }
 
 .btn-outline-primary {
@@ -39,4 +48,8 @@
 .form-inline button:hover {
     background: rgb(191, 63, 63);
     border-color: rgb(191, 63, 63);
+}
+
+.book-detail {
+    padding-bottom: 200px; 
 }
