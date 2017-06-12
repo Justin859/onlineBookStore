@@ -42,7 +42,7 @@ class Book(models.Model):
     book_image = models.ImageField(upload_to=('books/static/images/book-images'), max_length=255)
     book_recomended = models.BooleanField(default=False, choices=YES_OR_NO)
     book_rating = models.CharField(max_length=3, choices=NUMBER_OF_STARS)
-    book_price = MoneyField(max_digits=8, decimal_places=2, default=0, default_currency='ZAR')
+    book_price = MoneyField(max_digits=8, decimal_places=2, default=0)
     book_quantity = models.IntegerField(default=0)
 
     def __str__(self):
