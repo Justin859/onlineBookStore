@@ -39,8 +39,8 @@
         {% for recomended in recomended_books|cut_array:'6,3' %}
           <div class="col">
             <a href="book/{{recomended.book_title}}">
-            <figure class="figure detail-item">
-              <img class="figure-img rounded" height="324" width="220" src={{recomended.book_image | img_src}}></a>
+            <figure class="figure">
+              <img class="figure-img rounded" height="324" width="220" src={{recomended.book_image | img_src}}>
               <figcaption class="figure-caption">
               <b class="hidden-md-down">Rating</b>&nbsp;
               {% for i in recomended.book_rating|range %}
