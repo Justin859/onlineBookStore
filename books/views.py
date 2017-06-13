@@ -6,7 +6,7 @@ from django.contrib.sessions.backends.db import SessionStore
 from .models import *
 
 shopping_cart = SessionStore()
-shopping_cart.create()
+# shopping_cart.create()
 shopping_cart['cart_total'] = 0
 shopping_cart['books'] = {}
 # Create your views here.
