@@ -24,7 +24,7 @@
                 </li>
                 <form action="" method="post">
                     {% csrf_token %}
-                    {% if book.book_quantity != 0 %}
+                    {% if book.book_quantity > 0 %}
                     <button class="btn btn-primary" type="submit">Add to Cart&nbsp;&nbsp;<i class="fa fa-cart-plus fa-lg"></i></button>
                     {% else %}
                     <button class="btn btn-primary" disabled="true" type="submit">Add to Cart&nbsp;&nbsp;<i class="fa fa-cart-plus fa-lg"></i></button>
@@ -63,4 +63,5 @@
         </div>
     </div>
 </div>
+{{cart_items}}
 {% endblock %}

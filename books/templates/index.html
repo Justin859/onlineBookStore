@@ -11,9 +11,7 @@
   <div class="carousel-inner" role="listbox">
     <div class="carousel-item active">
       <div class="container-fluid">
-        <div class="row">
         {% for recomended in recomended_books|cut_array:'3,0' %}
-          <div class="col">
             <a href="book/{{recomended.book_title}}">
             <figure class="figure">
               <img class="figure-img rounded" height="324" width="220" src={{recomended.book_image | img_src}}>
@@ -28,16 +26,12 @@
               </figcaption>
             </figure>
             </a>
-          </div>
         {% endfor %}
-        </div>
       </div>
     </div>
     <div class="carousel-item">
       <div class="container-fluid">
-        <div class="row">
         {% for recomended in recomended_books|cut_array:'6,3' %}
-          <div class="col">
             <a href="book/{{recomended.book_title}}">
             <figure class="figure">
               <img class="figure-img rounded" height="324" width="220" src={{recomended.book_image | img_src}}>
@@ -52,16 +46,12 @@
               </figcaption>
             </figure>
             </a>
-          </div>
         {% endfor %}
-        </div>
       </div>
     </div>
     <div class="carousel-item">
       <div class="container-fluid">
-        <div class="row">
         {% for recomended in recomended_books|cut_array:'9,6' %}
-          <div class="col">
             <a href="book/{{recomended.book_title}}">
             <figure class="figure">
               <img class="figure-img rounded" height="324" width="220" src={{recomended.book_image | img_src}}>
@@ -76,9 +66,7 @@
               </figcaption>
             </figure>
             </a>
-          </div>
         {% endfor %}
-        </div>
       </div>
     </div>
   </div>
@@ -91,4 +79,5 @@
     <span class="sr-only">Next</span>
   </a>
 </div>
+{{cart_items}}
 {% endblock %}

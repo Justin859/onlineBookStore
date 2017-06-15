@@ -3,9 +3,17 @@
 {% load book_feature %}
 
 {% block content %}
-<ul>
-{% for bkey,bvalue in cart_books.items %}
-    <li>Title: {{bvalue.book_title}} - Price: {{bvalue.book_price}} Quantity: {{bvalue.book_quantity}}</li>
-{% endfor %}
-</ul>
+<form action="" method="post">
+    {% csrf_token %}
+    {{ formset.management_form }}
+    <table>
+    {% for form in formset %}
+        {{form}}
+    {% endfor %}
+    </table>
+<div class="form-group">
+    <button class="btn btn-primary" type="submit">Check Out&nbsp;&nbsp;<i class="fa fa-shopping-cart fa-lg"></i></button>
+</div>
+<form>
+    {{cart_items}}
 {% endblock %}

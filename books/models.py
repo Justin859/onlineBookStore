@@ -1,6 +1,9 @@
 from django.db import models
-
+from django.conf import settings
 # Create your models here.
+
+from django.contrib.sessions.models import Session
+from django.contrib.auth.signals import user_logged_in
 
 NUMBER_OF_STARS = (
     ('0.5', '1/2 stars'),
@@ -45,3 +48,14 @@ class Book(models.Model):
 
     def __str__(self):
         return self.book_title
+
+class UserSession(models.Model):
+    user = models.ForeignKey(settings.AUTH_USER_MODEL)
+    session = models.ForeignKey(Session)
+def user_logged_in_handler(sender, request, user, **kwargs):
+    UserSession.objects.get_or_create(
+        user = user,
+        session_id = request.session.session_key
+    )
+
+user_logged_in.connect(user_logged_in_handler)
