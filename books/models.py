@@ -49,13 +49,16 @@ class Book(models.Model):
     def __str__(self):
         return self.book_title
 
-class UserSession(models.Model):
-    user = models.ForeignKey(settings.AUTH_USER_MODEL)
-    session = models.ForeignKey(Session)
-def user_logged_in_handler(sender, request, user, **kwargs):
-    UserSession.objects.get_or_create(
-        user = user,
-        session_id = request.session.session_key
-    )
+class BookCartItems(models.Model):
+    cart_pk = models.IntegerField(max_length=255)
+    cart_item_id = models.IntegerField(max_length=255)
+    item_title = models.CharField(max_length=255)
+    item_price = models.DecimalField(max_digits=8, decimal_places=2)
+    item_quantity = models.IntegerField()
 
-user_logged_in.connect(user_logged_in_handler)
+    def __str__(self):
+        return self.item_title
+
+    class Meta:
+        verbose_name = 'Book Cart'
+        verbose_name_plural = 'Book Carts'    

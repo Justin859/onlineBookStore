@@ -4,4 +4,4 @@ from django.db import models
 from .models import *
 
 admin.site.register(Book)
-admin.site.register(UserSession)
+admin.site.register(BookCartItems)

@@ -12,13 +12,6 @@ from .models import *
 # Create your views here.
 
 def index(request):
-    # return HttpResponse('Hello from Python!')
-    try:
-        request.session['cart_total']
-        request.session['cart_items']
-    except KeyError:
-        request.session['cart_total'] = 0
-        request.session['cart_items'] = {}
 
     books = Book.objects.order_by('book_title')
     recomended_books = []
@@ -27,58 +20,45 @@ def index(request):
         if book.book_recomended:
             recomended_books.append(book)
     
-    return render(request, 'index.html', {'recomended_books': recomended_books, 'books': book, 'categories': categories, 'cart_total': request.session['cart_total'], 'cart_items': request.session['cart_items']})
+    return render(request, 'index.html', {'recomended_books': recomended_books, 'books': book, 'categories': categories})
 
 def book_detail(request, book_title):
 
     categories = BOOK_CATEGORIES
     book = get_object_or_404(Book, book_title=book_title)
-    try:
-        request.session['cart_total']
-        request.session['cart_items']
-    except KeyError:
-        request.session['cart_total'] = 0
-        request.session['cart_items'] = {}
-   
+
     if request.method == 'POST':
-        request.session['cart_total'] += 1
-        request.session['cart_items'][book.id] = {}
-        request.session['cart_items'][book.id]['book_title'] = book.book_title
-        request.session['cart_items'][book.id]['book_price'] = float(book.book_price)
-        request.session['cart_items'][book.id]['book_quantity'] = 1
+        new_item = BookCartItems.objects.create(
+            cart_pk = request.user.pk,
+            cart_item_id = book.pk,
+            item_title = book.book_title,
+            item_price = book.book_price,
+            item_quantity = 1,
+        )
         messages.success(request, "The book '" + book.book_title + "', Has been added to your cart")
-        return HttpResponseRedirect('/book/' + book.book_title)
-    return render(request, 'detail.html', {'book': book, 'categories': categories, 'cart_total': request.session['cart_total'], 'cart_items': request.session['cart_items']})
+    return render(request, 'detail.html', {'book': book, 'categories': categories})
 
 def cart(request):
-
-    try:
-        request.session['cart_total']
-        request.session['cart_items']
-    except KeyError:
-        request.session['cart_total'] = 0
-        request.session['cart_items'] = {}
-
-    cartItems = []
-    for key, value in request.session['cart_items'].items():
-        cartItems.append({'book_id': key, 'title': value['book_title'], 'price': value['book_price'], 'quantity': value['book_quantity']})
-
+    cart_items = []
+    cart = BookCartItems.objects.filter(cart_pk=request.user.pk)
     BookFormSet = formset_factory(BookForm, extra=0)
-    formset = BookFormSet(initial=cartItems)
+    formset = BookFormSet(initial=cart_items)
+    categories = BOOK_CATEGORIES
+
+    for item in cart:
+        cart_items.append({'book_id': item.cart_item_id, 'title': item.item_title, 'price': item.item_price, 'quantity': item.item_quantity})
 
     if request.method == 'POST':
         formset = BookFormSet(request.POST)
-        if formset.is_valid():
-            for form in formset:
+        for form in formset:
+            if formset.is_valid():
                 book_id = form.cleaned_data['book_id']
                 title = form.cleaned_data['title']
                 price = form.cleaned_data['price']
                 quantity = form.cleaned_data['quantity']
 
-                request.session['cart_total'] += 0
-                request.session['cart_items'][book_id]['book_quantity'] = quantity
+                BookCartItems.objects.filter(item_title=title).update(item_quantity=quantity)
     else:
-        formset = BookFormSet(initial=cartItems)
+        formset = BookFormSet(initial=cart_items)
 
-    categories = BOOK_CATEGORIES
-    return render(request, 'cart.html', {'categories': categories, 'cart_total': request.session['cart_total'], 'cart_items': request.session['cart_items'], 'formset': formset})
+    return render(request, 'cart.html', {'categories': categories, 'formset': formset, 'cart_items': cart_items, 'cart': cart})
