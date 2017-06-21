@@ -7,7 +7,7 @@
     <form action="" method="post">
         {% csrf_token %}
         {{formset.management_form}}
-        <table class="table table-bordered">
+        <table class="table table-bordered table-responsive">
             <thead>
                 <tr>
                 <th>#</th>
@@ -15,28 +15,32 @@
                 <th>Title</th>
                 <th>Price</th>
                 <th>Quantity</th>
+                <th>Delete</th>
                 </tr>
             </thead>
             <tbody>
         {% for form in formset %}
                 <tr>
-                <th scope="row">{{forloop.counter0}}</th>
-                <td><input name="form-{{forloop.counter0}}-book_id" value="{{form.book_id.value}}" type="text" readonly></td>
-                <td><input name="form-{{forloop.counter0}}-title" value="{{form.title.value}}" type="text" readonly></td>
-                <td><input name="form-{{forloop.counter0}}-price" step="any" value="{{form.price.value}}" type="text" readonly></td>
-                <td>{{form.quantity}}</td>
+                    <th scope="row">{{forloop.counter0}}</th>
+                    <td><input name="form-{{forloop.counter0}}-book_id" value="{{form.book_id.value}}" type="text" readonly></td>
+                    <td><input name="form-{{forloop.counter0}}-title" value="{{form.title.value}}" type="text" readonly></td>
+                    <td><input name="form-{{forloop.counter0}}-price" step="any" value="{{form.price.value}}" type="text" readonly></td>
+                    <td>{{form.quantity}}</td>
+                    <td>{{form.delete}}</td>
                 </tr>
         {% endfor %}
             </tbody>
         </table>
 
         <div class="form-group">
-            <button class="btn btn-primary" type="submit">Check Out&nbsp;&nbsp;<i class="fa fa-shopping-cart fa-lg"></i></button>
+            <button class="btn btn-primary" type="submit">Update Cart&nbsp;&nbsp;<i class="fa fa-shopping-cart fa-lg"></i></button>
         </div>
     </form>
 </div>
-{{cart}}
+{% for dict in formset.errors %}
+    {% for error in dict.values %}
+        {{ error }}
+    {% endfor %}
+{% endfor %}
 
-{{cart_items}}
-<!--{{cart_items}}-->
 {% endblock %}

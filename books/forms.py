@@ -5,3 +5,4 @@ class BookForm(forms.Form):
     title = forms.CharField()
     quantity = forms.IntegerField()
     price = forms.DecimalField()
+    delete = forms.ChoiceField(widget=forms.CheckboxInput, choices=((True, True), (False, False)))

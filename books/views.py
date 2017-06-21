@@ -46,7 +46,7 @@ def cart(request):
     categories = BOOK_CATEGORIES
 
     for item in cart:
-        cart_items.append({'book_id': item.cart_item_id, 'title': item.item_title, 'price': item.item_price, 'quantity': item.item_quantity})
+        cart_items.append({'book_id': item.cart_item_id, 'title': item.item_title, 'price': item.item_price, 'quantity': item.item_quantity, 'delete': False})
 
     if request.method == 'POST':
         formset = BookFormSet(request.POST)
@@ -56,8 +56,13 @@ def cart(request):
                 title = form.cleaned_data['title']
                 price = form.cleaned_data['price']
                 quantity = form.cleaned_data['quantity']
+                delete = form.cleaned_data['delete']
 
-                BookCartItems.objects.filter(item_title=title).update(item_quantity=quantity)
+                if delete == 'True':
+                    BookCartItems.objects.filter(item_title=title, cart_pk=request.user.pk).delete()
+                else:
+                    BookCartItems.objects.filter(item_title=title, cart_pk=request.user.pk).update(item_quantity=quantity)
+        return HttpResponseRedirect('/cart/')    
     else:
         formset = BookFormSet(initial=cart_items)
 
