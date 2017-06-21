@@ -1,3 +1,4 @@
+import urllib
 from django import forms
 
 class BookForm(forms.Form):
@@ -6,3 +7,6 @@ class BookForm(forms.Form):
     quantity = forms.IntegerField()
     price = forms.DecimalField()
     delete = forms.ChoiceField(widget=forms.CheckboxInput, choices=((True, True), (False, False)))
+
+class SearchForm(forms.Form):
+    query = forms.CharField()

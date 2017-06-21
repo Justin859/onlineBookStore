@@ -50,8 +50,8 @@ class Book(models.Model):
         return self.book_title
 
 class BookCartItems(models.Model):
-    cart_pk = models.IntegerField(max_length=255)
-    cart_item_id = models.IntegerField(max_length=255)
+    cart_pk = models.IntegerField()
+    cart_item_id = models.IntegerField()
     item_title = models.CharField(max_length=255)
     item_price = models.DecimalField(max_digits=8, decimal_places=2)
     item_quantity = models.IntegerField()

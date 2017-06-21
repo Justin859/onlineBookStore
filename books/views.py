@@ -5,13 +5,17 @@ from django.contrib.auth.models import User
 from django.contrib.sessions.backends.db import SessionStore
 from django.contrib.sessions.models import Session
 from django.forms import formset_factory
+from django.contrib.postgres.search import SearchVector, TrigramDistance
 
-from .forms import BookForm
+from .forms import BookForm, SearchForm
 from .models import *
 
 # Create your views here.
 
 def index(request):
+
+    if request.method == 'GET':
+        form = SearchForm(request.GET)
 
     books = Book.objects.order_by('book_title')
     recomended_books = []
@@ -38,6 +42,11 @@ def book_detail(request, book_title):
         messages.success(request, "The book '" + book.book_title + "', Has been added to your cart")
     return render(request, 'detail.html', {'book': book, 'categories': categories})
 
+def book_category(request, book_category):
+    categories = BOOK_CATEGORIES
+    books = Book.objects.filter(book_category=book_category)
+
+    return render(request, 'category.html', {'books': books, 'categories': categories, 'book_category': book_category})
 def cart(request):
     cart_items = []
     cart = BookCartItems.objects.filter(cart_pk=request.user.pk)
@@ -67,3 +76,19 @@ def cart(request):
         formset = BookFormSet(initial=cart_items)
 
     return render(request, 'cart.html', {'categories': categories, 'formset': formset, 'cart_items': cart_items, 'cart': cart})
+
+def search(request):
+    query = request.GET.get('query')
+    results = []
+
+    distance_author = Book.objects.annotate(
+        distance=TrigramDistance('book_author', query),
+    ).filter(distance__lte=0.7).order_by('distance')
+
+    distance_title = Book.objects.annotate(
+        distance=TrigramDistance('book_title', query),
+    ).filter(distance__lte=0.7).order_by('distance')
+
+    results.append([distance_author, distance_title])
+
+    return render(request, 'search.html', {'results': results, 'query': query})

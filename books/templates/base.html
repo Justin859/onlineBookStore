@@ -38,8 +38,8 @@
                   <a class="nav-link disabled" href="#">Disabled</a>
                 </li>
               </ul>
-              <form class="form-inline my-2 my-lg-0">
-                <input class="form-control mr-sm-2" type="text" placeholder="Search">
+              <form class="form-inline my-2 my-lg-0" action="/search/" method="GET">
+                <input class="form-control mr-sm-2" type="text" placeholder="Search" name="query" value="{{query}}" required>
                 <button class="btn btn-outline-primary my-2 my-sm-0" type="submit"><i class="fa fa-search" aria-hidden="true"></i></button>
               </form>
             </div>
@@ -65,7 +65,7 @@
               </li>
               <ul>
                 {% for item in categories %}
-                <li><a class="nav-link" href="#">{{item.0}}</a></li>
+                <li><a class="nav-link" href="/category/{{item.0}}/">{{item.0}}</a></li>
                 {% endfor %}
               </ul>
             </ul>

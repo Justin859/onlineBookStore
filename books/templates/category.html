@@ -1,0 +1,48 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load book_feature %}
+{% block content %}
+
+{% for book in books %}
+<h3>Category - {{book_category}}</h3>
+<ul class="list-group">
+        <figure class="figure">
+            <li class="list-group-item">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-4">
+                            <img class="figure-img rounded" height="324" width="220" src="../../{{book.book_image | img_src}}">
+                        </div>
+                        <div class="col-4">
+                            <ul class="list-group">
+                                <li class="list-group-item">Author: {{book.book_author}}</li>
+                                <li class="list-group-item">Title: {{book.book_title}}</li>
+                                <li class="list-group-item">Genre: {{book.book_category}}</li>
+                                <li class="list-group-item">
+                                    Book Rating:&nbsp;&nbsp;
+                                    {% for i in book.book_rating|range %}
+                                    <i class="fa fa-star" aria-hidden="true"></i>
+                                    {% endfor %}
+                                    {% for i in book.book_rating|stars_off %}
+                                    <i class="fa fa-star-o" aria-hidden="true"></i>
+                                    {% endfor %}
+                                </li>
+                                <li class="list-group-item">Price: {{book.book_price}}</li>
+                                <li class="list-group-item">
+                                    Available:
+                                    {% if book.book_quantity != 0 %}
+                                    Yes
+                                    {% else %}
+                                    No
+                                    {% endif %}
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </li>
+        </figure>
+</ul>
+{% endfor %}
+
+{% endblock %}
