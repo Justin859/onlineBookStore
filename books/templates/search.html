@@ -3,49 +3,63 @@
 {% load book_feature %}
 
 {% block content %}
-{% for result in results.0 %}
-<ul class="list-group">
-    {% for item in result %}
-        {% if item %}
-        <figure class="figure">
-            <li class="list-group-item">
-                <div class="container">
-                    <div class="row">
-                        <div class="col-4">
-                            <img class="figure-img rounded" height="324" width="220" src="../../{{item.book_image | img_src}}">
-                        </div>
-                        <div class="col-4">
-                            <ul class="list-group">
-                                <li class="list-group-item">Author: {{item.book_author}}</li>
-                                <li class="list-group-item">Title: {{item.book_title}}</li>
-                                <li class="list-group-item">Genre: {{item.book_category}}</li>
-                                <li class="list-group-item">
-                                    Book Rating:&nbsp;&nbsp;
-                                    {% for i in item.book_rating|range %}
-                                    <i class="fa fa-star" aria-hidden="true"></i>
-                                    {% endfor %}
-                                    {% for i in item.book_rating|stars_off %}
-                                    <i class="fa fa-star-o" aria-hidden="true"></i>
-                                    {% endfor %}
-                                </li>
-                                <li class="list-group-item">Price: {{item.book_price}}</li>
-                                <li class="list-group-item">
-                                    Available:
-                                    {% if item.book_quantity != 0 %}
-                                    Yes
-                                    {% else %}
-                                    No
-                                    {% endif %}
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-            </li>
-        </figure>
-        {% endif %}
-    {% endfor %}
-</ul>
-{% endfor %}
+
+{% if not results %}
+<div class="container">
+    <div class="row">
+        <div class="col-8">
+            <div class="alert alert-info" role="alert">
+                <strong>Sorry!</strong> But there are no results for <strong>{{query}}</strong>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% else %}
+<h1>Search Results For <small class="text-muted">{{ query }}</small></h1>
+<hr>
+<div class="container">
+    <div class="row">
+        {% for book in book_results %}
+        <div class="col-4">
+            <a href="/book/{{ book.book_title }}">
+            <figure class="figure">
+               <img class="figure-img " height="324" width="220" src="../../{{ book.book_image | img_src }}"> 
+               <figcaption class="figure-caption">{{ book.book_title }}</figcaption>
+               <figcaption class="figure-caption">by - {{ book.book_author }}</figcaption>
+               <figcaption class="figure-caption">R{{ book.book_price }}</figcaption>
+            </figure>
+            </a>
+        </div>
+        {% endfor %}
+    </div>
+
+    <hr>
+
+    <div class="row">
+        <div class="offset-5">
+            <nav aria-label="Page navigation">
+            <ul class="pagination">
+                {% if book_results.has_previous %}
+                <li class="page-item"><a class="page-link" href="?query={{query}}&page={{ book_results.previous_page_number }}">Previous</a></li>
+                {% endif %}
+
+                {% for page_num in range %}
+                    {% if page_int == forloop.counter %}
+                    <li class="page-item active"><a class="page-link" href="?query={{query}}&page={{ forloop.counter }}">{{forloop.counter}}</a></li>
+                    {% else %}
+                    <li class="page-item"><a class="page-link" href="?query={{query}}&page={{ forloop.counter }}">{{forloop.counter}}</a></li>                
+                    {% endif %}
+                {% endfor %}
+
+                {% if book_results.has_next %}
+                <li class="page-item"><a class="page-link" href="?query={{ query }}&page={{ book_results.next_page_number }}">Next</a></li>
+                {% endif %}
+            </ul>
+            </nav>
+        </div>
+    </div>
+</div>
+{% endif %}
 
 {% endblock %}

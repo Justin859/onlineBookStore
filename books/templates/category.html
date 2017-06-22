@@ -3,46 +3,29 @@
 {% load book_feature %}
 {% block content %}
 
-{% for book in books %}
-<h3>Category - {{book_category}}</h3>
-<ul class="list-group">
-        <figure class="figure">
-            <li class="list-group-item">
-                <div class="container">
-                    <div class="row">
-                        <div class="col-4">
-                            <img class="figure-img rounded" height="324" width="220" src="../../{{book.book_image | img_src}}">
-                        </div>
-                        <div class="col-4">
-                            <ul class="list-group">
-                                <li class="list-group-item">Author: {{book.book_author}}</li>
-                                <li class="list-group-item">Title: {{book.book_title}}</li>
-                                <li class="list-group-item">Genre: {{book.book_category}}</li>
-                                <li class="list-group-item">
-                                    Book Rating:&nbsp;&nbsp;
-                                    {% for i in book.book_rating|range %}
-                                    <i class="fa fa-star" aria-hidden="true"></i>
-                                    {% endfor %}
-                                    {% for i in book.book_rating|stars_off %}
-                                    <i class="fa fa-star-o" aria-hidden="true"></i>
-                                    {% endfor %}
-                                </li>
-                                <li class="list-group-item">Price: {{book.book_price}}</li>
-                                <li class="list-group-item">
-                                    Available:
-                                    {% if book.book_quantity != 0 %}
-                                    Yes
-                                    {% else %}
-                                    No
-                                    {% endif %}
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-            </li>
-        </figure>
-</ul>
-{% endfor %}
+<h1 class="display-4">Category - {{book_category}}</h1>
+<hr>
+
+
+
+<div class="container">
+    <div class="row">
+        {% for book in books %}
+        <div class="col-4">
+            <a href="/book/{{ book.book_title }}">
+            <figure class="figure">
+               <img class="figure-img " height="324" width="220" src="../../{{ book.book_image | img_src }}"> 
+               <figcaption class="figure-caption">{{ book.book_title }}</figcaption>
+               <figcaption class="figure-caption">by - {{ book.book_author }}</figcaption>
+               <figcaption class="figure-caption">R{{ book.book_price }}</figcaption>
+            </figure>
+            </a>
+        </div>
+        {% endfor %}
+
+    </div>
+</div>
+
+
 
 {% endblock %}

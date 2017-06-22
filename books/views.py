@@ -6,16 +6,14 @@ from django.contrib.sessions.backends.db import SessionStore
 from django.contrib.sessions.models import Session
 from django.forms import formset_factory
 from django.contrib.postgres.search import SearchVector, TrigramDistance
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
-from .forms import BookForm, SearchForm
+from .forms import BookForm
 from .models import *
 
 # Create your views here.
 
 def index(request):
-
-    if request.method == 'GET':
-        form = SearchForm(request.GET)
 
     books = Book.objects.order_by('book_title')
     recomended_books = []
@@ -78,17 +76,41 @@ def cart(request):
     return render(request, 'cart.html', {'categories': categories, 'formset': formset, 'cart_items': cart_items, 'cart': cart})
 
 def search(request):
+
+    categories = BOOK_CATEGORIES
+
     query = request.GET.get('query')
     results = []
 
     distance_author = Book.objects.annotate(
         distance=TrigramDistance('book_author', query),
-    ).filter(distance__lte=0.7).order_by('distance')
+    ).filter(distance__lte=0.8).order_by('distance')
 
     distance_title = Book.objects.annotate(
         distance=TrigramDistance('book_title', query),
-    ).filter(distance__lte=0.7).order_by('distance')
+    ).filter(distance__lte=0.8).order_by('distance')
 
-    results.append([distance_author, distance_title])
+    results.append(distance_title)
+    results.append(distance_author)
 
-    return render(request, 'search.html', {'results': results, 'query': query})
+    result = [a for a in results if a.count() != 0]
+    results = result
+
+    try:
+        paginator = Paginator(results[0], 3)
+    except:
+        paginator = Paginator(results, 3)    
+    
+    page = request.GET.get('page')
+
+    try:
+        book_results = paginator.page(page)
+        page_int = int(page)
+    except PageNotAnInteger:
+        book_results = paginator.page(1)
+        page_int = 1
+    except EmptyPage:
+        book_results = paginator.page(paginator.num_pages)
+         
+
+    return render(request, 'search.html', {'book_results': book_results, 'query': query, 'results': results, 'categories': categories, 'page': page, 'page_int': page_int , 'paginator': paginator, 'range': range(paginator.num_pages)})

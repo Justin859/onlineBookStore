@@ -1,55 +1,31 @@
-.nav-col, .categories-col, .main-col {
-    background: rgb(191, 63, 63);
-    padding: 15px;
+.col-9, .col-3 {
+    padding: 50px;
 }
 
-.categories-col, .main-col {
-    margin: 25px;
-    box-shadow: 5px 5px 2px grey;
+.col-3 {
+    background-color: #f2f2f2;
+    height: 100vh;
+    padding-bottom: 970px; 
 }
 
-.flex-column, div .cart-col {
-    background: rgb(240,240,240);
-    height: 100%;
+.col-3 .nav {
+    background: #333333;
 }
 
-.flex-column a {
-    color: black;
+.col-3 .nav a {
+    color: #ffffff;
+    font-weight: bold;
 }
 
-.flex-column a:hover {
-    color: white;
-    background: rgb(191, 63, 63);
+.col-3 .nav a:hover {
+    background: #ffffff;
+    color: #333333;
 }
 
-.carousel-item {
-    padding-top: 20px;
-    background: rgb(240,240,240);
+.collapse hr {
+    background-color: #ffffff;
 }
 
-.book-detail {
-    padding: 20px;
-    background: rgb(240,240,240);
-}
-
-a figure img {
-    box-shadow: 5px 5px 2px grey;
-}
-
-a figure img:hover {
-    box-shadow: 0px 0px 0px;
-}
-
-.btn-outline-primary {
-    border-color: rgb(191, 63, 63);
-    color: black;
-}
-
-.form-inline button:hover {
-    background: rgb(191, 63, 63);
-    border-color: rgb(191, 63, 63);
-}
-
-.book-detail {
-    padding-bottom: 200px; 
+.footer {
+    background-color: #f2f2f2;
 }

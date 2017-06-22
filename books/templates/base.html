@@ -15,63 +15,65 @@
   </head>
   <body>
 
+    <nav class="navbar navbar-toggleable-md navbar-inverse" style="background-color: #333333;">
+      <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <a class="navbar-brand" href="#">
+        <img src="{% static 'images/brand/open-book.svg' %}" width="30" height="30" class="d-inline-block align-top" alt="">
+        Food For Thought
+      </a>
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav mr-auto">
+          <li class="nav-item active">
+            <a class="nav-link" href="/">Home <span class="sr-only">(current)</span></a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/cart">Cart</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link disabled" href="#">Disabled</a>
+          </li>
+        </ul>
+        <form class="form-inline my-2 my-lg-0" action="/search/" method="GET">
+          <input class="form-control mr-sm-2" type="text" placeholder="Search" name="query" value="{{query}}" required>
+          <button class="btn btn-primary my-2 my-sm-0" type="submit">Search&nbsp;&nbsp;<i class="fa fa-search" aria-hidden="true"></i></button>
+        </form>
+      </div>
+    </nav>
+
     <div class="container-fluid">
       <div class="row">
-        <div class="col-12 nav-col">
-          <nav class="navbar navbar-toggleable-md navbar-light bg-faded">
-            <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-              <span class="navbar-toggler-icon"></span>
-            </button>
-            <a class="navbar-brand" href="#">
-              <img src="{% static 'images/brand/open-book.svg' %}" width="30" height="30" class="d-inline-block align-top" alt="">
-              Food For Thought
-            </a>
-            <div class="collapse navbar-collapse" id="navbarSupportedContent">
-              <ul class="navbar-nav mr-auto">
-                <li class="nav-item active">
-                  <a class="nav-link" href="/">Home <span class="sr-only">(current)</span></a>
-                </li>
-                <li class="nav-item">
-                  <a class="nav-link" href="/cart">Cart</a>
-                </li>
-                <li class="nav-item">
-                  <a class="nav-link disabled" href="#">Disabled</a>
-                </li>
-              </ul>
-              <form class="form-inline my-2 my-lg-0" action="/search/" method="GET">
-                <input class="form-control mr-sm-2" type="text" placeholder="Search" name="query" value="{{query}}" required>
-                <button class="btn btn-outline-primary my-2 my-sm-0" type="submit"><i class="fa fa-search" aria-hidden="true"></i></button>
-              </form>
-            </div>
-          </nav>
+        <div class="col-9">
+        {% block content %}
+        {% endblock %}
+        </div>
+        <div class="col-3">
+          <ul class="nav flex-column">
+            <li class="nav-item">
+              <a class="nav-link active" href="#">Library</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#">Authors</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#collapseCategory" data-toggle="collapse" href="#collapseCategory" aria-expanded="false" aria-controls="collapseCategory">Categories<i class="pull-right">&plus;</i></a>
+            </li>
+              <div class="collapse" id="collapseCategory">
+              <hr>
+                {% for item in categories %}
+                <li class="nav-item"><a class="nav-link" href="/category/{{ item.0 }}/">{{item.0}}</a></li>
+                {% endfor %}
+              </div>
+          </ul>
         </div>
       </div>
     </div>
+
     <div class="container-fluid">
       <div class="row">
-        <div class="col-2 categories-col">
-            <ul class="nav flex-column">
-              <li class="nav-item">
-                <a class="nav-link" href="#">Library</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="#">Authors</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="#">Latest Arrivals</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="#">Categories</a>
-              </li>
-              <ul>
-                {% for item in categories %}
-                <li><a class="nav-link" href="/category/{{item.0}}/">{{item.0}}</a></li>
-                {% endfor %}
-              </ul>
-            </ul>
-        </div>
-        <div class="col-9 main-col">
-          {% block content %}{% endblock %}
+        <div class="col-12 footer">
+          Footer
         </div>
       </div>
     </div>
