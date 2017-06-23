@@ -42,9 +42,49 @@ def book_detail(request, book_title):
 
 def book_category(request, book_category):
     categories = BOOK_CATEGORIES
-    books = Book.objects.filter(book_category=book_category)
+    books = Book.objects.filter(book_category=book_category).order_by('pk')
 
-    return render(request, 'category.html', {'books': books, 'categories': categories, 'book_category': book_category})
+    paginator = Paginator(books, 3)    
+    
+    page = request.GET.get('page')
+
+    try:
+        book_results = paginator.page(page)
+        page_int = int(page)
+    except PageNotAnInteger:
+        book_results = paginator.page(1)
+        page_int = 1
+    except EmptyPage:
+        book_results = paginator.page(paginator.num_pages)
+
+    return render(request, 'category.html', {'book_results': book_results, 'books': books, 'categories': categories, 'book_category': book_category, 'page': page, 'page_int': page_int , 'paginator': paginator, 'range': range(paginator.num_pages)})
+
+def authors(request):
+    authors = Author.objects.all().order_by('author_name')
+    categories = BOOK_CATEGORIES
+
+    paginator = Paginator(authors, 6)    
+
+    page = request.GET.get('page')
+
+    try:
+        author_result = paginator.page(page)
+        page_int = int(page)
+    except PageNotAnInteger:
+        author_result = paginator.page(1)
+        page_int = 1
+    except EmptyPage:
+        author_result = paginator.page(paginator.num_pages)
+
+    return render(request, 'authors.html', {'authors': authors, 'author_result': author_result, 'categories': categories, 'page': page, 'page_int': page_int , 'paginator': paginator, 'range': range(paginator.num_pages)})
+
+def author_detail(request, author_name):
+    categories = BOOK_CATEGORIES
+
+    author = get_object_or_404(Author, author_name=author_name)
+
+    return render(request, 'author_detail.html', {'author': author, 'categories': categories})
+
 def cart(request):
     cart_items = []
     cart = BookCartItems.objects.filter(cart_pk=request.user.pk)

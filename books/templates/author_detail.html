@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+{% load static %}
+{% load book_feature %}
+
+{% block content %}
+
+<div class="container">
+    <div class="row">
+        <div class="col-12">
+            <h1>Author - <small class="text-muted">{{author.author_name}}</small></h1>
+            <hr>
+        </div>
+    </div>
+    
+    <div class="row">
+        <div class="col-4 offset-4">
+            <img class="img-thumbnail img-fluid" src="../../{{ author.author_image | img_src }}">
+        </div>
+    </div>
+    <br />
+    <br />
+    <div class="row">
+        <div class="col">
+            <div class="card text-center">
+                <div class="card-block">
+                    <h4 class="card-title">Who they are</h4>
+                    <p class="card-text">{{ author.author_description | markdown_to_html}}</p>
+                </div>
+                <div class="card-block">
+                    <h4 class="card-title">About</h4>
+                    <p class="card-text">{{ author.author_info | markdown_to_html}}</p>
+                </div>
+            </div>
+        </div>   
+    </div>
+</div>
+
+{% endblock %}

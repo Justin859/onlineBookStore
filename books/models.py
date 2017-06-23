@@ -49,6 +49,15 @@ class Book(models.Model):
     def __str__(self):
         return self.book_title
 
+class Author(models.Model):
+    author_name = models.CharField(max_length=255)
+    author_description = models.TextField()
+    author_image = models.ImageField(upload_to=('books/static/images/author-images'), max_length=255)
+    author_info = models.TextField()
+
+    def __str__(self):
+        return self.author_name
+
 class BookCartItems(models.Model):
     cart_pk = models.IntegerField()
     cart_item_id = models.IntegerField()

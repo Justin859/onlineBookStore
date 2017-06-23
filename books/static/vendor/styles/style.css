@@ -2,10 +2,13 @@
     padding: 50px;
 }
 
-.col-3 {
+.col-9 {
+    background-color: #fff;
+    padding-bottom: 52vh;
+}
+
+body {
     background-color: #f2f2f2;
-    height: 100vh;
-    padding-bottom: 970px; 
 }
 
 .col-3 .nav {
