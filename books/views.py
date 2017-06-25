@@ -1,7 +1,7 @@
 import json
 
 from django.shortcuts import render, get_object_or_404
-from django.http import HttpResponse, HttpResponseRedirect
+from django.http import HttpResponse, HttpResponseRedirect, JsonResponse
 from django.contrib import messages
 from django.contrib.auth.models import User
 from django.contrib.sessions.backends.db import SessionStore
@@ -9,6 +9,7 @@ from django.contrib.sessions.models import Session
 from django.forms import formset_factory
 from django.contrib.postgres.search import SearchVector, TrigramDistance
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+from django.core import serializers
 
 from .forms import BookForm
 from .models import *
@@ -159,5 +160,8 @@ def search(request):
     except EmptyPage:
         book_results = paginator.page(paginator.num_pages)
          
-
     return render(request, 'search.html', {'book_results': book_results, 'query': query, 'results': results, 'categories': categories, 'page': page, 'page_int': page_int , 'paginator': paginator, 'range': range(paginator.num_pages)})
+
+def api(request):
+    books_json = serializers.serialize('json', Book.objects.all(), fields=('book_title'))
+    return HttpResponse(books_json, content_type='application/json')

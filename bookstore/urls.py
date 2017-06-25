@@ -17,5 +17,6 @@ urlpatterns = [
     url(r'^author/(?P<author_name>[\w\s\']+)/$', books.views.author_detail, name='author_detail'),
     url(r'^category/(?P<book_category>[\w\s\']+)/$', books.views.book_category, name='book_category'),
     url(r'^cart/', books.views.cart, name='cart'),
+    url(r'^api/data/$', books.views.api, name='api'),
     url(r'^search/$', books.views.search, name='search'),
 ]
