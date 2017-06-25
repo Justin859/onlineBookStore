@@ -1,3 +1,5 @@
+import json
+
 from django.shortcuts import render, get_object_or_404
 from django.http import HttpResponse, HttpResponseRedirect
 from django.contrib import messages
@@ -14,6 +16,11 @@ from .models import *
 # Create your views here.
 
 def index(request):
+
+    data = {'name':'justin', 'surname':'hammond'}
+
+    with open('data.json', 'w') as f:
+        json.dump(data, f)
 
     books = Book.objects.order_by('book_title')
     recomended_books = []
