@@ -2,7 +2,7 @@ $(document).ready(function(){
 
 $.ajax({
     url: '/api/data/',
-    type: 'get', // This is the default though, you don't actually need to always mention it
+    type: 'get',
     success: function(data) {
         book_titles = []
         jQuery.each(data, function(i, val) {
@@ -21,6 +21,16 @@ $.ajax({
     failure: function(data) { 
         alert('There seems to be a problem.');
     }
+});
+
+var ready = false;
+
+if (ready != true) {
+    $('.col-9').append('<div class="loader"><i class="fa fa-circle-o-notch fa-spin fa-3x fa-fw"><i>')
+}
+jQuery(document).ready(function() {
+    ready = true
+    $('.loader').remove()
 });
 
 }); 
