@@ -1,10 +1,9 @@
-.col-9, .col-3 {
+.col-9, .side-menu {
     padding: 50px;
 }
 
-.col-9 {
+.col-12 {
     background-color: #fff;
-    padding-bottom: 52vh;
 }
 
 body {
@@ -29,6 +28,22 @@ body {
     background-color: #ffffff;
 }
 
-.footer {
+.bookshelf {
     background-color: #f2f2f2;
 }
+
+.bookshelf-border {
+    height: 25px;
+    background-color: #333333;
+}
+
+
+.bookshelf a img:hover, .search-item a img:hover {
+    box-shadow: 10px 10px 5px #888888;
+}
+
+.list-group-item {
+    background-color: #333333;
+    color: #ffffff;
+}
+

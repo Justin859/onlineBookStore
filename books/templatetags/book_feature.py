@@ -31,3 +31,10 @@ def cut_array(value, arg):
     arg = arg.split(',')
     value = value[int(arg[1]):int(arg[0])]
     return value
+
+@register.filter('shortner')
+def shortner(value):
+    value = value.split(" ")
+    value = value[:25]
+    value = " ".join(value)
+    return value

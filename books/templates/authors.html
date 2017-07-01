@@ -11,10 +11,8 @@
         {% for author in author_result %}
         <div class="col-4">
             <a href="/author/{{ author.author_name }}">
-            <figure class="figure">
-               <img class="figure-img img-fluid " src="../../{{ author.author_image | img_src }}"> 
+               <img class=" img-fluid" src="../../{{ author.author_image | img_src }}"> 
                <figcaption class="figure-caption">{{ author.author_name }}</figcaption>
-            </figure>
             </a>
         </div>
         {% endfor %}
@@ -28,6 +26,9 @@
             <ul class="pagination">
                 {% if author_result.has_previous %}
                 <li class="page-item"><a class="page-link" href="?query={{query}}&page={{ author_result.previous_page_number }}">Previous</a></li>
+                {% else %}
+                <li class="page-item disabled"><a class="page-link" disabled="true">Previous</a></li>
+
                 {% endif %}
 
                 {% for page_num in range %}
@@ -40,11 +41,15 @@
 
                 {% if author_result.has_next %}
                 <li class="page-item"><a class="page-link" href="?query={{ query }}&page={{ author_result.next_page_number }}">Next</a></li>
+                {% else %}
+                <li class="page-item disabled"><a class="page-link">Next</a></li>
                 {% endif %}
             </ul>
             </nav>
         </div>
     </div>
 </div>
+
+{{test}}
 
 {% endblock %}

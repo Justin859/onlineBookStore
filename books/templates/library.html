@@ -1,0 +1,58 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load book_feature %}
+{% block content %}
+
+<div class="row">
+    <div class="col-md-12">
+        <h2>Recomendations - <small class="text-muted">From Our Library</small></h2>
+    </div>
+</div>
+<hr>
+<div class="bookshelf">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12 bookshelf-border">
+            </div>
+        </div>
+        {% for books in book_results %}
+        <div class="row">
+            {% for item in books %}
+            <div class="col-6 col-md-3" align="center">
+                <a id="element" tabindex="{{forloop.count0}}" data-toggle="popover" data-trigger="hover" title="{{item.book_title}}" data-html="true" data-container="body" data-content="<p><b>Author: </b> {{item.book_author}}</p><p>{{item.book_description | shortner}}...</p>" href="/book/{{item.book_title}}">
+                    <img class="img-fluid img-thumbnail" src="../../{{ item.book_image | img_src }}">
+                </a>
+            </div>
+            {% endfor %}
+            <div class="col-md-12 bookshelf-border">
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+<br>
+<div class="row d-flex justify-content-center">
+    <nav aria-label="Page navigation">
+    <ul class="pagination">
+        {% if book_results.has_previous %}
+        <li class="page-item"><a class="page-link" href="?query={{query}}&page={{ book_results.previous_page_number }}">Previous</a></li>
+        {% else %}
+        <li class="page-item disabled"><a class="page-link" disabled="true">Previous</a></li>
+        {% endif %}
+        {% for page_num in range %}
+            {% if page_int == forloop.counter %}
+            <li class="page-item active"><a class="page-link" href="?query={{query}}&page={{ forloop.counter }}">{{forloop.counter}}</a></li>
+            {% else %}
+            <li class="page-item"><a class="page-link" href="?query={{query}}&page={{ forloop.counter }}">{{forloop.counter}}</a></li>                
+            {% endif %}
+        {% endfor %}
+        {% if book_results.has_next %}
+        <li class="page-item"><a class="page-link" href="?query={{ query }}&page={{ book_results.next_page_number }}">Next</a></li>
+        {% else %}
+        <li class="page-item disabled"><a class="page-link">Next</a></li>
+        {% endif %}
+    </ul>
+    </nav>
+</div>
+
+{% endblock %}

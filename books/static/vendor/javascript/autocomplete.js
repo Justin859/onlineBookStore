@@ -7,6 +7,7 @@ $.ajax({
         book_titles = []
         jQuery.each(data, function(i, val) {
             book_titles.push(val['fields']['book_title'])
+            if($.inArray(val['fields']['book_author'], book_titles) === -1) book_titles.push(val['fields']['book_author']);
         })
         var options = {
             data: book_titles,
@@ -23,14 +24,8 @@ $.ajax({
     }
 });
 
-var ready = false;
-
-if (ready != true) {
-    $('.col-9').append('<div class="loader"><i class="fa fa-circle-o-notch fa-spin fa-3x fa-fw"><i>')
-}
-jQuery(document).ready(function() {
-    ready = true
-    $('.loader').remove()
-});
+$(function () {
+  $('[data-toggle="popover"]').popover()
+})
 
 }); 

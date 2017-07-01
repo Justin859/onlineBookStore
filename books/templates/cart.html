@@ -24,7 +24,7 @@
         <tbody>
     {% for form in formset %}
             <tr>
-                <th scope="row">{{forloop.counter0}}</th>
+                <th scope="row">{{forloop.counter}}</th>
                 <td><input name="form-{{forloop.counter0}}-book_id" value="{{form.book_id.value}}" type="text" readonly></td>
                 <td><input name="form-{{forloop.counter0}}-title" value="{{form.title.value}}" type="text" readonly></td>
                 <td><input name="form-{{forloop.counter0}}-price" step="any" value="{{form.price.value}}" type="text" readonly></td>
@@ -35,10 +35,23 @@
         </tbody>
     </table>
     <hr>
-    <div class="form-group pull-right">
-        <button class="btn btn-primary" type="submit">Update Cart&nbsp;&nbsp;<i class="fa fa-pencil-square-o fa-lg"></i></button>&nbsp;&nbsp;&nbsp;&nbsp;
-        <button class="btn btn-primary">Check Out&nbsp;&nbsp;&nbsp;&nbsp;<i class="fa fa-shopping-cart fa-lg"></i></button>
+    <div class="row">
+        <div class="col-4 mr-auto">
+            <button class="btn btn-sm btn-primary" type="submit">Update Cart&nbsp;&nbsp;&nbsp;&nbsp;<i class="fa fa-pencil-square-o fa-lg"></i></button>
+            <button class="btn btn-sm btn-primary pull-right">Check Out&nbsp;&nbsp;&nbsp;&nbsp;<i class="fa fa-shopping-cart fa-lg"></i></button>
+        </div>
+        <div class="col-4 ml-auto">
+            <ul class="list-group">
+                <li class="list-group-item">Total Excluding VAT - R{{total_excl}}</li>
+                <li class="list-group-item">Total Including VAT - R{{total_bill}}</li>
+            </ul>
+        </div>
     </div>
+    <br>
+    <div class="row">
+
+    </div>
+    <br>
 </form>
 
 {% endblock %}
