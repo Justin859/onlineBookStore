@@ -6,8 +6,6 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-    <!-- EasyAutocomplete -->
-    <link rel="stylesheet" href="{% static 'vendor/jquery-easy-autocomplete/bower_components/EasyAutocomplete/dist/easy-autocomplete.min.css' %}">
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="{% static 'vendor/bootstrap/bower_components/bootstrap/dist/css/bootstrap.min.css' %}">
     <!-- Custom CSS  -->
@@ -17,7 +15,7 @@
   </head>
   <body>
 
-    <nav class="navbar navbar-toggleable-md navbar-inverse hidden-lg-down" style="background-color: #333333;">
+    <nav class="navbar navbar-toggleable-md navbar-inverse sticky-top" style="background-color: #333333;">
       <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
@@ -34,24 +32,23 @@
             <a class="nav-link" href="/cart">Cart <i class="fa fa-cart-arrow-down" aria-hidden="true"></i> ({{number_of_items}})</a>
           </li>
         </ul>
-        <ul class="navbar-nav">
-          <li class="nav-item">
-            <form class="form-inline" action="/search/" method="GET">
-              <input id="basics" class="form-control " type="text" placeholder="Search for a Book" name="query" value="{{query}}" required>&nbsp;&nbsp;
-              <button class="btn btn-primary " type="submit">Search&nbsp;&nbsp;<i class="fa fa-search" aria-hidden="true"></i></button>
-            </form>
-          </li>
-        </ul>
+      <form class="ui-widget form-inline my-2 my-lg-0" action="/search/" method="GET">
+        <div class="input-group">
+          <input id="tags" class="autocomp form-control" type="text" placeholder="Search" name="query" value="{{query}}" required>
+          <span class="input-group-btn">
+            <button class="btn btn-primary" type="submit">Search</button>
+          </span>
+        </div>
+      </form>
       </div>
     </nav>
-
     <div class="container-fluid">
       <div class="row">
-        <div class="col-12 col-md-9">
+        <div class="col-12 col-lg-9">
         {% block content %}
         {% endblock %}
         </div>
-        <div class="col-3 hidden-sm-down side-menu">
+        <div class="col-3 hidden-md-down side-menu">
           <ul class="nav flex-column">
             <li class="nav-item">
               <a class="nav-link active" href="/library/">Library</a>
@@ -75,11 +72,11 @@
 
     <!-- jQuery first, then Tether, then Bootstrap JS. -->
     <script src="{% static 'vendor/bootstrap/bower_components/jquery/dist/jquery.min.js' %}"></script>
-    <script src="{% static 'vendor/jquery-easy-autocomplete/bower_components/EasyAutocomplete/dist/jquery.easy-autocomplete.min.js' %}"></script> 
     <script src="{% static 'vendor/bootstrap/bower_components/tether/dist/js/tether.min.js' %}"></script>
     <script src="{% static 'vendor/bootstrap/bower_components/bootstrap/dist/js/bootstrap.min.js' %}"></script>
     <script src="{% static 'vendor/angular/bower_components/angular/angular.min.js' %}"></script>
     <script src="{% static 'vendor/angular/bower_components/angular/app.js' %}"></script>
+    <script src="{% static 'vendor/jquery-ui/bower_components/jquery-ui//jquery-ui.min.js' %}"></script>
     <script src="{% static 'vendor/javascript/autocomplete.js' %}"></script>
   </body>
 </html>

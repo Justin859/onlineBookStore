@@ -172,8 +172,11 @@ def cart(request):
         return HttpResponseRedirect('/cart/')    
     else:
         formset = BookFormSet(initial=cart_items)
-
-    return render(request, 'cart.html', {'total_excl': total_excl,'total_bill': total_bill,'number_of_items': number_of_items, 'categories': categories, 'formset': formset, 'cart_items': cart_items, 'cart': cart})
+    
+    total_number_of_items = 0
+    for item in cart:
+        total_number_of_items += item.item_quantity
+    return render(request, 'cart.html', {'total_number_of_items': total_number_of_items, 'total_excl': total_excl,'total_bill': total_bill,'number_of_items': number_of_items, 'categories': categories, 'formset': formset, 'cart_items': cart_items, 'cart': cart})
 
 def search(request):
     number_of_items = BookCartItems.objects.filter(cart_pk=request.user.pk).count()

@@ -4,54 +4,81 @@
 
 {% block content %}
 
-<h1>Your Shopping Cart</h1>
+<h2>Your Shopping Cart</h2>
 <hr>
-
-<form action="" method="post">
-    {% csrf_token %}
-    {{formset.management_form}}
-    <table class="table">
-        <thead class="thead-inverse">
+<br>
+<div class="row">
+    <div class="col-12 col-md-7">
+        {% if number_of_items %}
+        <form action="" method="post">
+            {% csrf_token %}
+            {{formset.management_form}}
+            <table class="table table-sm">
+                <thead class="thead-inverse">
+                    <tr>
+                    <th>#</th>
+                    <th>Title</th>
+                    <th>Price</th>
+                    <th>Quantity</th>
+                    <th>Delete</th>
+                    </tr>
+                </thead>
+                <tbody>
+            {% for form in formset %}
+                    <tr>
+                        <th scope="row">{{forloop.counter}}</th>
+                        <td class="hidden">
+                            {{form.book_id.value}}
+                            <input name="form-{{forloop.counter0}}-book_id" value="{{form.book_id.value}}" type="text" readonly>
+                        </td>
+                        <td>
+                            <a href="/book/{{form.title.value}}/">{{form.title.value}}</a>
+                            <input class="hidden" name="form-{{forloop.counter0}}-title" value="{{form.title.value}}" type="text" readonly>
+                        </td>
+                        <td>
+                            R{{form.price.value}}
+                            <input class="hidden" name="form-{{forloop.counter0}}-price" step="any" value="{{form.price.value}}" type="text" readonly>
+                        </td>
+                        <td class="numinput">
+                            {{form.quantity}}
+                        </td>
+                        <td>{{form.delete}}</td>
+                    </tr>
+            {% endfor %}
+                </tbody>
+            </table>
+            <div class="d-flex justify-content-center cart-button">
+                <button class="btn btn-block btn-secondary" type="submit">Update Cart&nbsp;&nbsp;&nbsp;&nbsp;<i class="fa fa-pencil-square-o fa-lg"></i></button>
+            </div>
+        </form>
+        {% else %}
+        <h3>Your cart is empty! Add items to your cart!</h3>
+        <br>
+        <i class="fa fa-cart-arrow-down fa-5x d-flex justify-content-center" aria-hidden="true"></i>
+        {% endif %}
+    </div>
+    <div class="col-12 col-md-5"><br class="hidden-md-up">
+        <table class="table table-sm table-hover">
             <tr>
-            <th>#</th>
-            <th>id</th>
-            <th>Title</th>
-            <th>Price</th>
-            <th>Quantity</th>
-            <th>Delete</th>
+                <td><strong>Total Number of Items</strong></td>
+                <td>{{total_number_of_items}}</td>
             </tr>
-        </thead>
-        <tbody>
-    {% for form in formset %}
             <tr>
-                <th scope="row">{{forloop.counter}}</th>
-                <td><input name="form-{{forloop.counter0}}-book_id" value="{{form.book_id.value}}" type="text" readonly></td>
-                <td><input name="form-{{forloop.counter0}}-title" value="{{form.title.value}}" type="text" readonly></td>
-                <td><input name="form-{{forloop.counter0}}-price" step="any" value="{{form.price.value}}" type="text" readonly></td>
-                <td>{{form.quantity}}</td>
-                <td>{{form.delete}}</td>
+                <td><strong>Total Excluding VAT</strong></td>
+                <td>R{{total_excl}}</td>
             </tr>
-    {% endfor %}
-        </tbody>
-    </table>
-    <hr>
-    <div class="row">
-        <div class="col-4 mr-auto">
-            <button class="btn btn-sm btn-primary" type="submit">Update Cart&nbsp;&nbsp;&nbsp;&nbsp;<i class="fa fa-pencil-square-o fa-lg"></i></button>
-            <button class="btn btn-sm btn-primary pull-right">Check Out&nbsp;&nbsp;&nbsp;&nbsp;<i class="fa fa-shopping-cart fa-lg"></i></button>
-        </div>
-        <div class="col-4 ml-auto">
-            <ul class="list-group">
-                <li class="list-group-item">Total Excluding VAT - R{{total_excl}}</li>
-                <li class="list-group-item">Total Including VAT - R{{total_bill}}</li>
-            </ul>
+            <tr>
+                <td><strong> Total Including VAT </strong></td>
+                <td>R{{total_bill}}</td>
+            </tr>
+        </table>
+        <br>
+        <div class="d-flex justify-content-center cart-button">
+            <button class="btn btn-block btn-secondary">Check Out&nbsp;&nbsp;&nbsp;&nbsp;<i class="fa fa-shopping-cart fa-lg"></i></button>
         </div>
     </div>
-    <br>
-    <div class="row">
-
-    </div>
-    <br>
-</form>
+</div>
+<br>
+<hr>
 
 {% endblock %}

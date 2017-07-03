@@ -1,5 +1,5 @@
-.col-9, .side-menu {
-    padding: 50px;
+.col-lg-9, .side-menu {
+    padding: 2em;
 }
 
 .col-12 {
@@ -47,3 +47,34 @@ body {
     color: #ffffff;
 }
 
+.cart-button button:hover {
+    color: #ffffff;
+    background-color: #0275d8; 
+    border-color: #0275d8;
+}
+
+.ui-menu {
+    background-color: #333333;
+    color: #ffffff;
+    z-index: 99999;
+    position: fixed;
+    list-style-type: none;
+    padding: 0px 0px 0px 0px;
+    border: 5px solid #333333;
+    border-radius: 2px;
+}
+
+.ui-menu-item :hover {
+    color: #333333;
+    background-color: #ffffff;
+    border: 5px solid #ffffff;
+    cursor: pointer;
+}
+
+.hidden {
+    display: none;
+}
+
+.numinput input {
+    width: 50px;
+}
