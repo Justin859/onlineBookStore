@@ -244,10 +244,7 @@ def cancel(request):
 
 def notify(request):
 
-    response = HttpResponse()
-    body = request.POST
-
-    return HttpResponse(200, 'HTTP/1.0 200 OK')
+    return HttpResponse()
 
 def api(request):
     books_json = serializers.serialize('json', Book.objects.all(), fields=('book_title', 'book_author'))
