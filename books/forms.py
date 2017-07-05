@@ -12,9 +12,9 @@ class BookForm(forms.Form):
 class CheckOutForm(forms.Form):
     merchant_id = forms.IntegerField(widget=forms.HiddenInput(), initial=10004715)
     merchant_key = forms.CharField(widget=forms.HiddenInput(), initial='dhdw9uqzmpzo0')
-    return_url = forms.CharField(widget=forms.HiddenInput(), initial='http://127.0.0.1:5000/success')
-    cancel_url = forms.CharField(widget=forms.HiddenInput(), initial='http://127.0.0.1:5000/cancel')
-    notify_url = forms.CharField(widget=forms.HiddenInput(), initial='http://127.0.0.1:5000/notify')
+    return_url = forms.CharField(widget=forms.HiddenInput(), initial='http://desolate-basin-41691.herokuapp.com/success')
+    cancel_url = forms.CharField(widget=forms.HiddenInput(), initial='http://desolate-basin-41691.herokuapp.com/cancel')
+    notify_url = forms.CharField(widget=forms.HiddenInput(), initial='http://desolate-basin-41691.herokuapp.com/notify')
     name_first = forms.CharField(widget=forms.HiddenInput())
     name_last = forms.CharField(widget=forms.HiddenInput())
     amount = forms.IntegerField()
