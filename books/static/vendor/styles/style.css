@@ -67,7 +67,6 @@ body {
 .ui-menu-item :hover {
     color: #333333;
     background-color: #ffffff;
-    border: 5px solid #ffffff;
     cursor: pointer;
 }
 
@@ -77,4 +76,8 @@ body {
 
 .numinput input {
     width: 50px;
+}
+
+.searchBox input {
+    border: 2px solid #f2f2f2;
 }

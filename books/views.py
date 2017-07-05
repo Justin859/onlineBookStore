@@ -2,7 +2,7 @@ import json
 import decimal
 
 from django.shortcuts import render, get_object_or_404
-from django.http import HttpResponse, HttpResponseRedirect, JsonResponse
+from django.http import HttpResponse, HttpRequest, HttpResponseRedirect, JsonResponse
 from django.contrib import messages
 from django.contrib.auth.models import User
 from django.contrib.sessions.backends.db import SessionStore
@@ -12,27 +12,25 @@ from django.contrib.postgres.search import SearchVector, TrigramDistance
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.core import serializers
 
-from .forms import BookForm
+from .forms import BookForm, CheckOutForm
 from .models import *
 
 # methods
 
 def chunks(l, n):
     n = max(1, n)
-    return [l[i:i+n] for i in xrange(0, len(l), n)]
+    return [l[i:i+n] for i in range(0, len(l), n)]
+
+
 
 # Create your views here.
 
 def index(request):
     number_of_items = BookCartItems.objects.filter(cart_pk=request.user.pk).count()
     books = Book.objects.order_by('book_title')
-    recomended_books = []
     categories = BOOK_CATEGORIES
-    for book in books:
-        if book.book_recomended:
-            recomended_books.append(book)
     
-    return render(request, 'index.html', {'number_of_items': number_of_items, 'recomended_books': recomended_books, 'books': book, 'categories': categories})
+    return render(request, 'index.html', {'number_of_items': number_of_items, 'categories': categories})
 
 def book_detail(request, book_title):
     number_of_items = BookCartItems.objects.filter(cart_pk=request.user.pk).count()
@@ -187,11 +185,11 @@ def search(request):
 
     distance_author = Book.objects.annotate(
         distance=TrigramDistance('book_author', query),
-    ).filter(distance__lte=0.8).order_by('distance')
+    ).filter(distance__lte=0.7).order_by('distance')
 
     distance_title = Book.objects.annotate(
         distance=TrigramDistance('book_title', query),
-    ).filter(distance__lte=0.8).order_by('distance')
+    ).filter(distance__lte=0.7).order_by('distance')
 
     results.append(distance_title)
     results.append(distance_author)
@@ -216,6 +214,40 @@ def search(request):
         book_results = paginator.page(paginator.num_pages)
          
     return render(request, 'search.html', {'number_of_items': number_of_items,'book_results': book_results, 'query': query, 'results': results, 'categories': categories, 'page': page, 'page_int': page_int , 'paginator': paginator, 'range': range(paginator.num_pages)})
+
+def checkout(request):
+    number_of_items = BookCartItems.objects.filter(cart_pk=request.user.pk).count()
+    books = Book.objects.order_by('book_title')
+    cart = BookCartItems.objects.filter(cart_pk=request.user.pk)
+    total_bill = 0
+    for item in cart:
+        total_bill += item.item_price
+
+    categories = BOOK_CATEGORIES
+
+    if request.method == 'POST':
+        
+        form = CheckOutForm(request.POST)
+
+    else:
+        form =  CheckOutForm()    
+
+    return render(request, 'checkout.html', {'total_bill': total_bill, 'form': form, 'number_of_items': number_of_items, 'categories': categories})
+
+def success(request):
+
+    return render(request, 'success.html', {})
+
+def cancel(request):
+
+    return render(request, 'cancel.html', {})
+
+def notify(request):
+
+    response = HttpResponse()
+    body = request.POST
+
+    return HttpResponse()
 
 def api(request):
     books_json = serializers.serialize('json', Book.objects.all(), fields=('book_title', 'book_author'))

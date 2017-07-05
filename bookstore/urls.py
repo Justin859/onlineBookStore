@@ -20,4 +20,8 @@ urlpatterns = [
     url(r'^cart/', books.views.cart, name='cart'),
     url(r'^api/data/$', books.views.api, name='api'),
     url(r'^search/$', books.views.search, name='search'),
+    url(r'^checkout/$', books.views.checkout, name='checkout'),
+    url(r'^success/$', books.views.success, name='success'),
+    url(r'^cancel/$', books.views.cancel, name='cancel'),
+    url(r'^notify/$', books.views.notify, name='notify'),
 ]
