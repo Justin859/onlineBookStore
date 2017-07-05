@@ -23,8 +23,6 @@ def chunks(l, n):
     n = max(1, n)
     return [l[i:i+n] for i in range(0, len(l), n)]
 
-
-
 # Create your views here.
 
 def index(request):
@@ -246,8 +244,9 @@ def cancel(request):
 
 @csrf_exempt
 def notify(request):
+    id = request.POST.get('name_first', None)
 
-    return HttpResponse()
+    return HttpResponse(id)
 
 def api(request):
     books_json = serializers.serialize('json', Book.objects.all(), fields=('book_title', 'book_author'))
