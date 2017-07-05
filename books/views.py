@@ -12,6 +12,8 @@ from django.contrib.postgres.search import SearchVector, TrigramDistance
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.core import serializers
 
+from django.views.decorators.csrf import csrf_exempt
+
 from .forms import BookForm, CheckOutForm
 from .models import *
 
@@ -242,6 +244,7 @@ def cancel(request):
 
     return render(request, 'cancel.html', {})
 
+@csrf_exempt
 def notify(request):
 
     return HttpResponse()
