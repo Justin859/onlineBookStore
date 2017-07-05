@@ -247,7 +247,7 @@ def notify(request):
     response = HttpResponse()
     body = request.POST
 
-    return HttpResponse()
+    return HttpResponse(status=200)
 
 def api(request):
     books_json = serializers.serialize('json', Book.objects.all(), fields=('book_title', 'book_author'))
