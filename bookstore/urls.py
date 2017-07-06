@@ -12,6 +12,7 @@ import books.views
 urlpatterns = [
     url(r'^$', books.views.index, name='index'),
     url(r'^admin/', include(admin.site.urls)),
+    url(r'^paypal/', include('paypal.standard.ipn.urls')),
     url(r'^book/(?P<book_title>[\w\s\']+)/$', books.views.book_detail, name='book_detail'),
     url(r'^authors/$', books.views.authors, name='authors'),
     url(r'^author/(?P<author_name>[\w\s\']+)/$', books.views.author_detail, name='author_detail'),
@@ -20,8 +21,7 @@ urlpatterns = [
     url(r'^cart/', books.views.cart, name='cart'),
     url(r'^api/data/$', books.views.api, name='api'),
     url(r'^search/$', books.views.search, name='search'),
-    url(r'^checkout/$', books.views.checkout, name='checkout'),
+    url(r'^payment/$', books.views.view_that_asks_for_money, name='payment'),
     url(r'^success/$', books.views.success, name='success'),
     url(r'^cancel/$', books.views.cancel, name='cancel'),
-    url(r'^notify/$', books.views.notify, name='notify'),
 ]

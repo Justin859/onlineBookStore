@@ -12,7 +12,6 @@ https://docs.djangoproject.com/en/1.8/ref/settings/
 import os
 import dj_database_url
 
-
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 PROJECT_ROOT = os.path.dirname(os.path.abspath(__file__))
@@ -38,8 +37,11 @@ INSTALLED_APPS = (
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django.contrib.postgres',
+    'paypal.standard.ipn',
     'books'
 )
+
+PAYPAL_TEST = True
 
 SESSION_ENGINE = "django.contrib.sessions.backends.cached_db"
 
@@ -83,8 +85,8 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
         'NAME': 'bookstore',
-        'USER': os.environ.get('POSTGRESQL_USERNAME'),
-        'PASSWORD': os.environ.get('POSTGRESQL_PASSWORD'),
+        'USER': 'postgres',
+        'PASSWORD': 'M@sterBl@ster#3',
         'HOST': 'localhost',
         'PORT': '5432',
     }
