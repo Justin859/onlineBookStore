@@ -41,8 +41,6 @@ INSTALLED_APPS = (
     'books'
 )
 
-PAYPAL_TEST = True
-
 SESSION_ENGINE = "django.contrib.sessions.backends.cached_db"
 
 MIDDLEWARE_CLASSES = (
