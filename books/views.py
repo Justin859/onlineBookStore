@@ -255,7 +255,6 @@ def view_that_asks_for_money(request):
         "notify_url": "http://desolate-basin-41691.herokuapp.com" + reverse('paypal-ipn'),
         "return_url": "http://desolate-basin-41691.herokuapp.com/success",
         "cancel_return": "http://desolate-basin-41691.herokuapp.com/cancel",
-        "currency_code": "ZAR",
     }
 
     form = PayPalPaymentsForm(initial=paypal_dict)
