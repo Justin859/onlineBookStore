@@ -14,6 +14,7 @@ from django.core import serializers
 
 from django.views.decorators.csrf import csrf_exempt
 from django.views.decorators.clickjacking import xframe_options_exempt
+from django.views.decorators.clickjacking import xframe_options_deny
 
 from .forms import BookForm, CheckOutForm
 from .models import *
@@ -239,10 +240,10 @@ def cancel(request):
 
     return render(request, 'cancel.html', {})
 
-@xframe_options_exempt
+@xframe_options_deny
 def notify(request):
 
-    return HttpResponse()
+    return HttpResponse("Hello, World!")
 
 def api(request):
     books_json = serializers.serialize('json', Book.objects.all(), fields=('book_title', 'book_author'))
