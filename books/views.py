@@ -243,7 +243,8 @@ def notify(request):
     res = ""
     if request.method == 'POST':
         res = "PASS"
-    else res = "FAIL"    
+    else:
+        res = "FAIL"    
         
     return HttpResponse(res)
 
