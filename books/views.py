@@ -242,10 +242,13 @@ def cancel(request):
 def notify(request):
     test = ""
     if request.method == 'POST':
-        test = request.POST.get('payment_status')
+        test = request.POST
     else:
-        test = "FAIL"    
-        
+        test = "FAIL"
+
+    if test.get('payment_status') == 'COMPLETED':
+        BookCartItems.objects.filter(cart_pk=request.user.pk).delete()
+
     return HttpResponse()
 
 def api(request):
