@@ -242,11 +242,11 @@ def cancel(request):
 def notify(request):
     test = ""
     if request.method == 'POST':
-        test = request.POST.get('merchant_id')
+        test = request.POST.get('payment_status')
     else:
         test = "FAIL"    
         
-    return HttpResponse(test)
+    return HttpResponse()
 
 def api(request):
     books_json = serializers.serialize('json', Book.objects.all(), fields=('book_title', 'book_author'))
