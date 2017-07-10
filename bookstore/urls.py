@@ -23,4 +23,5 @@ urlpatterns = [
     url(r'^payment/$', books.views.view_that_asks_for_money, name='payment'),
     url(r'^success/$', books.views.success, name='success'),
     url(r'^cancel/$', books.views.cancel, name='cancel'),
+    url(r'^notify/', books.views.notify, name='notify'),
 ]
