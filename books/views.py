@@ -12,34 +12,12 @@ from django.contrib.postgres.search import SearchVector, TrigramDistance
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.core import serializers
 
-from paypal.standard.models import ST_PP_COMPLETED
-from paypal.standard.ipn.signals import valid_ipn_received
-from django.core.urlresolvers import reverse
 from django.views.decorators.csrf import csrf_exempt
-from paypal.standard.forms import PayPalPaymentsForm
 
-from .forms import BookForm
+from .forms import BookForm, CheckOutForm
 from .models import *
 
-# methods
-
-def show_me_the_money(sender, **kwargs):
-
-    total_bill = 0
-    for item in cart:
-        total_bill += item.item_price
-
-    ipn_obj = sender
-    if ipn_obj.payment_status == ST_PP_COMPLETED:
-        if ipn_obj.reciever_email != "justinhammond859@gmail.com":
-
-            return False
-        if ipn_obj.amount != total_bill:
-
-            return False
-    else:
-        return False
-valid_ipn_received.connect(show_me_the_money)                  
+# methods               
 
 def chunks(l, n):
     n = max(1, n)
@@ -247,19 +225,9 @@ def view_that_asks_for_money(request):
     test = request.META['REMOTE_ADDR']
     categories = BOOK_CATEGORIES
 
-    paypal_dict = {
-        "business": "justinhammond859@gmail.com",
-        "amount": total_bill,
-        "item_name": "Test Cart",
-        "invoice" : "0001",
-        "notify_url": "http://desolate-basin-41691.herokuapp.com" + reverse('paypal-ipn'),
-        "return_url": "http://desolate-basin-41691.herokuapp.com/success",
-        "cancel_return": "http://desolate-basin-41691.herokuapp.com/cancel",
-    }
+    form = CheckOutForm()
 
-    form = PayPalPaymentsForm(initial=paypal_dict)
-
-    return render(request, 'payment.html', {'form': form, 'total_bill': total_bill, 'number_of_items': number_of_items, 'categories': categories})
+    return render(request, 'payment.html', {'form':form, 'total_bill': total_bill, 'number_of_items': number_of_items, 'categories': categories})
 
 @csrf_exempt
 def success(request):

@@ -3,5 +3,40 @@
 {% load book_feature %}
 
 {% block content %}
-{{form.render}}
+
+<form action="https://sandbox.payfast.co.za/eng/process" method="POST">
+    {% csrf_token %}
+    <div class="form-group">
+        <input type="hidden" class="form-control" name="merchant_id" value="{{form.merchant_id.value}}" readonly>
+    </div>
+    <div class="form-group">
+        <input type="hidden" class="form-control" name="merchant_key" value="{{form.merchant_key.value}}" readonly>
+    </div>
+    <div class="form-group">
+        <input type="hidden" class="form-control" name="amount" value="{{total_bill}}" readonly>
+    </div>
+    <div class="form-group">
+        <input type="hidden" class="form-control" name="item_name" value="{{request.user.pk}}" readonly>
+    </div>
+    <div class="form-group">
+        <input type="hidden" class="form-control" name="return_url" value="{{form.return_url.value}}" readonly>
+    </div>
+        <div class="form-group">
+        <input type="hidden" class="form-control" name="cancel_url" value="{{form.cancel_url.value}}" readonly>
+    </div>
+    <div class="form-group">
+        <input type="hidden" class="form-control" name="notify_url" value="{{form.notify_url.value}}" readonly>
+    </div>
+    <div class="form-group">
+        <input type="hidden" class="form-control" name="name_first" value="{{request.user}}" readonly>
+    </div>
+    <div class="form-group">
+        <input type="hidden" class="form-control" name="name_last" value="{{request.user}}" readonly>
+    </div>
+
+    <div class="form-group">
+        <input type="submit" class="form-control" value="Checkout">
+    </div>
+</form>
+
 {% endblock %}

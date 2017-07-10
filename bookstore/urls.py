@@ -12,7 +12,6 @@ import books.views
 urlpatterns = [
     url(r'^$', books.views.index, name='index'),
     url(r'^admin/', include(admin.site.urls)),
-    url(r'^paypal/', include('paypal.standard.ipn.urls')),
     url(r'^book/(?P<book_title>[\w\s\']+)/$', books.views.book_detail, name='book_detail'),
     url(r'^authors/$', books.views.authors, name='authors'),
     url(r'^author/(?P<author_name>[\w\s\']+)/$', books.views.author_detail, name='author_detail'),
