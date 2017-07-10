@@ -13,8 +13,6 @@ from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.core import serializers
 
 from django.views.decorators.csrf import csrf_exempt
-from django.views.decorators.clickjacking import xframe_options_exempt
-from django.views.decorators.clickjacking import xframe_options_deny
 
 from .forms import BookForm, CheckOutForm
 from .models import *
@@ -240,10 +238,9 @@ def cancel(request):
 
     return render(request, 'cancel.html', {})
 
-@xframe_options_deny
+@csrf_exempt
 def notify(request):
-
-    return HttpResponse("Hello, World!")
+    return HttpResponse()
 
 def api(request):
     books_json = serializers.serialize('json', Book.objects.all(), fields=('book_title', 'book_author'))

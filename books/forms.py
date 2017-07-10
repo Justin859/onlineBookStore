@@ -14,7 +14,7 @@ class CheckOutForm(forms.Form):
      merchant_key = forms.CharField(widget=forms.HiddenInput(), initial='dhdw9uqzmpzo0')
      return_url = forms.CharField(widget=forms.HiddenInput(), initial='http://desolate-basin-41691.herokuapp.com/success')
      cancel_url = forms.CharField(widget=forms.HiddenInput(), initial='http://desolate-basin-41691.herokuapp.com/cancel')
-     notify_url = forms.CharField(widget=forms.HiddenInput(), initial='http://desolate-basin-41691.herokuapp.com/notify')
+     notify_url = forms.CharField(widget=forms.HiddenInput(), initial='http://desolate-basin-41691.herokuapp.com/notify/')
      name_first = forms.CharField(widget=forms.HiddenInput())
      name_last = forms.CharField(widget=forms.HiddenInput())
      amount = forms.IntegerField()
