@@ -246,7 +246,7 @@ def notify(request):
     else:
         test = "FAIL"
 
-    if test.get('payment_status') == 'COMPLETED':
+    if test.get('payment_status') == 'COMPLETE':
         BookCartItems.objects.filter(cart_pk=request.user.pk).delete()
 
     return HttpResponse()
