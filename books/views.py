@@ -241,12 +241,13 @@ def cancel(request):
 @csrf_exempt
 def notify(request):
     res = ""
+    test = request.GET.get('merchant_id')
     if request.method == 'POST':
         res = "PASS"
     else:
         res = "FAIL"    
         
-    return HttpResponse(res)
+    return HttpResponse(res + test)
 
 def api(request):
     books_json = serializers.serialize('json', Book.objects.all(), fields=('book_title', 'book_author'))
