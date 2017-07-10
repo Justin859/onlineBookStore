@@ -13,6 +13,7 @@ from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.core import serializers
 
 from django.views.decorators.csrf import csrf_exempt
+from django.views.decorators.clickjacking import xframe_options_exempt
 
 from .forms import BookForm, CheckOutForm
 from .models import *
@@ -238,7 +239,7 @@ def cancel(request):
 
     return render(request, 'cancel.html', {})
 
-@csrf_exempt
+@xframe_options_exempt
 def notify(request):
 
     return HttpResponse()
