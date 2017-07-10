@@ -242,7 +242,7 @@ def cancel(request):
 def notify(request):
     test = ""
     if request.method == 'POST':
-        test = request.GET.get('merchant_id')
+        test = request.POST.get('merchant_id')
     else:
         test = "FAIL"    
         

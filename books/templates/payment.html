@@ -4,7 +4,7 @@
 
 {% block content %}
 
-<form action="https://sandbox.payfast.co.za/eng/process" method="POST">
+<form action="http://127.0.0.1:5000/notify/" method="POST">
     {% csrf_token %}
     <div class="form-group">
         <input type="hidden" class="form-control" name="merchant_id" value="{{form.merchant_id.value}}" readonly>
