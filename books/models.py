@@ -72,7 +72,7 @@ class BookCartItems(models.Model):
 
     class Meta:
         verbose_name = 'Book Cart'
-        verbose_name_plural = 'Book Carts'    
+        verbose_name_plural = 'Book Carts'
 
 class Order(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
@@ -81,10 +81,32 @@ class Order(models.Model):
     payment_id = models.UUIDField(default=uuid.uuid4, editable=False)
     pf_payment_id = models.CharField(max_length=255)
     amount_gross = models.DecimalField(max_digits=8, decimal_places=2)
+    quantity_of_books = models.IntegerField(default=0)
 
     def __str__(self):
-        return str(self.created_at)
+        return self.order_username + " " + str(self.created_at)
     
     class META:
         verbose_name = 'Order'
         verbose_name_plural = 'Orders'
+        
+class BookCartItems(models.Model):
+    cart_pk = models.IntegerField()
+    cart_item_id = models.IntegerField()
+    item_title = models.CharField(max_length=255)
+    item_price = models.DecimalField(max_digits=8, decimal_places=2)
+    item_quantity = models.IntegerField()
+
+class OrderedItem(models.Model):
+    item_pk = models.IntegerField()
+    item_id = models.CharField(max_length=255)
+    item_title = models.CharField(max_length=255)
+    item_price = models.DecimalField(max_digits=8, decimal_places=2)
+    item_quantity = models.IntegerField()
+
+    def __str__(self):
+        return self.item_title
+
+    class META:
+        verbose_name = 'Ordered Item'
+        verbose_name_plural = 'Ordered Items'

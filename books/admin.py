@@ -7,4 +7,5 @@ admin.site.register(Book)
 admin.site.register(BookCartItems)
 admin.site.register(Author)
 admin.site.register(Order)
+admin.site.register(OrderedItem)
 

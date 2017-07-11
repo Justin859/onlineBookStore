@@ -227,15 +227,19 @@ def view_that_asks_for_money(request):
     number_of_items = BookCartItems.objects.filter(cart_pk=request.user.pk).count()
     books = Book.objects.order_by('book_title')
     cart = BookCartItems.objects.filter(cart_pk=request.user.pk)
+
     total_bill = 0
     for item in cart:
         total_bill += item.item_price
-    test = request.META['REMOTE_ADDR']
+    total_number_of_items = 0
+    for item in cart:
+        total_number_of_items += item.item_quantity
+
     categories = BOOK_CATEGORIES
 
     form = CheckOutForm()
 
-    return render(request, 'payment.html', {'form':form, 'total_bill': total_bill, 'number_of_items': number_of_items, 'categories': categories})
+    return render(request, 'payment.html', {'form':form, 'total_number_of_items': total_number_of_items, 'total_bill': total_bill, 'number_of_items': number_of_items, 'categories': categories})
 
 @csrf_exempt
 def success(request):
@@ -252,14 +256,27 @@ def notify(request):
     host_ip = get_client_ip(request)
     pf_data = request.POST
 
+    full_name = pf_data.get('name_first') + " " + pf_data.get('name_last')
+
     if pf_data.get('payment_status') == 'COMPLETE':
         new_order = Order.objects.create(
-            order_username = pf_data.get('name_first'),
+            order_username = full_name,
             order_user_pk = pf_data.get('m_payment_id'),
             pf_payment_id = pf_data.get('pf_payment_id'),
             amount_gross = pf_data.get('amount_gross'),
+            quantity_of_books = pf_data.get('custom_int1'),
         )
-        BookCartItems.objects.filter(cart_pk=pf_data.get('m_payment_id')).delete()
+        checked_out_items = BookCartItems.objects.filter(cart_pk=pf_data.get('m_payment_id'))
+
+        for item in checked_out_items:
+            new_order_item = OrderedItem.objects.create(
+                item_pk = cart_item.item_pk,
+                item_id = pf_data.get('pf_payment_id'),
+                item_title = item.item_title,
+                item_price = item.item_price,
+                item_quantity = item.item_quantity,
+            )
+        checked_out_items = BookCartItems.objects.filter(cart_pk=pf_data.get('m_payment_id')).delete()
 
     return HttpResponse()
 

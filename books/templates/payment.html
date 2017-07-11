@@ -28,14 +28,18 @@
         <input type="hidden" class="form-control" name="notify_url" value="{{form.notify_url.value}}" readonly>
     </div>
     <div class="form-group">
-        <input type="hidden" class="form-control" name="name_first" value="{{request.user}}" readonly>
+        <input type="hidden" class="form-control" name="name_first" value="{{request.user.first_name}}" readonly>
     </div>
     <div class="form-group">
-        <input type="hidden" class="form-control" name="name_last" value="{{request.user}}" readonly>
+        <input type="hidden" class="form-control" name="name_last" value="{{request.user.last_name}}" readonly>
+    </div>
+    <div class="form-group">
+        <input type="hidden" class="form-control" name="custom_int1" value="{{total_number_of_items}}" readonly>
     </div>
     <div class="form-group">
         <input type="hidden" class="form-control" name="m_payment_id" value="{{request.user.pk}}" readonly>
     </div>
+    
     <div class="form-group">
         <input type="submit" class="form-control" value="Checkout">
     </div>
