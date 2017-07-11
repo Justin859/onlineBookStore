@@ -33,7 +33,9 @@
     <div class="form-group">
         <input type="hidden" class="form-control" name="name_last" value="{{request.user}}" readonly>
     </div>
-
+    <div class="form-group">
+        <input type="hidden" class="form-control" name="m_payment_id" value="{{request.user.pk}}" readonly>
+    </div>
     <div class="form-group">
         <input type="submit" class="form-control" value="Checkout">
     </div>

@@ -23,6 +23,14 @@ def chunks(l, n):
     n = max(1, n)
     return [l[i:i+n] for i in range(0, len(l), n)]
 
+def get_client_ip(request):
+    x_forwarded_for = request.META.get('HTTP_X_FORWARDED_FOR')
+    if x_forwarded_for:
+        ip = x_forwarded_for.split(',')[0]
+    else:
+        ip = request.META.get('REMOTE_ADDR')
+    return ip
+
 # Create your views here.
 
 def index(request):
@@ -240,15 +248,13 @@ def cancel(request):
 
 @csrf_exempt
 def notify(request):
-    test = ""
-    if request.method == 'POST':
-        test = request.POST
-    else:
-        test = "FAIL"
 
-    if test.get('payment_status') == 'COMPLETE':
-        BookCartItems.objects.filter(cart_pk=request.user.pk).delete()
+    host_ip = get_client_ip(request)
+    pf_data = request.POST
 
+    if pf_data.get('payment_status') == 'COMPLETE':
+        BookCartItems.objects.filter(cart_pk=pf_data.get('m_payment_id')).delete()
+        
     return HttpResponse()
 
 def api(request):

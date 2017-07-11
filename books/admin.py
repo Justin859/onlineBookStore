@@ -6,4 +6,3 @@ from .models import *
 admin.site.register(Book)
 admin.site.register(BookCartItems)
 admin.site.register(Author)
-
