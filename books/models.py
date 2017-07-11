@@ -1,3 +1,5 @@
+import uuid
+
 from django.db import models
 from django.conf import settings
 # Create your models here.
@@ -71,3 +73,18 @@ class BookCartItems(models.Model):
     class Meta:
         verbose_name = 'Book Cart'
         verbose_name_plural = 'Book Carts'    
+
+class Order(models.Model):
+    created_at = models.DateTimeField(auto_now_add=True)
+    order_username = models.CharField(max_length=55)
+    order_user_pk = models.CharField(max_length=255)
+    payment_id = models.UUIDField(default=uuid.uuid4, editable=False)
+    pf_payment_id = models.CharField(max_length=255)
+    amount_gross = models.DecimalField(max_digits=8, decimal_places=2)
+
+    def __str__(self):
+        return self.created_at
+    
+    class META:
+        verbose_name = 'Order'
+        verbose_name_plural = 'Orders'

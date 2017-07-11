@@ -82,8 +82,8 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
         'NAME': 'bookstore',
-        'USER': os.environ['POSTGRESQL_USERNAME'],
-        'PASSWORD': os.environ['POSTGRESQL_PASSWORD'],
+        'USER': 'postgres',
+        'PASSWORD': 'M@sterBl@ster#3',
         'HOST': 'localhost',
         'PORT': '5432',
     }

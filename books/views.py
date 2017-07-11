@@ -253,8 +253,14 @@ def notify(request):
     pf_data = request.POST
 
     if pf_data.get('payment_status') == 'COMPLETE':
+        new_order = Order.objects.create(
+            order_username = pf_data.get('name_first'),
+            order_user_pk = pf_data.get('m_payment_id'),
+            pf_payment_id = pf_data.get('pf_payment_id'),
+            amount_gross = pf_data.get('amount_gross'),
+        )
         BookCartItems.objects.filter(cart_pk=pf_data.get('m_payment_id')).delete()
-        
+
     return HttpResponse()
 
 def api(request):
