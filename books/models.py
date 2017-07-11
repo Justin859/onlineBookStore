@@ -83,7 +83,7 @@ class Order(models.Model):
     amount_gross = models.DecimalField(max_digits=8, decimal_places=2)
 
     def __str__(self):
-        return self.created_at
+        return str(self.created_at)
     
     class META:
         verbose_name = 'Order'
