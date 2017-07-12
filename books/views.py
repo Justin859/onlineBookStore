@@ -271,7 +271,7 @@ def notify(request):
         for item in checked_out_items:
             new_order_item = OrderedItem.objects.create(
                 order_payment_id = pf_data.get('pf_payment_id'),
-                order_user_pk = pf_data.get('m_payment_id'),
+                order_user_pk = host_ip,
                 item_id = item.cart_item_id,
                 item_title = item.item_title,
                 item_price = item.item_price,
