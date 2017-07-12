@@ -89,16 +89,8 @@ class Order(models.Model):
     class META:
         verbose_name = 'Order'
         verbose_name_plural = 'Orders'
-        
-class BookCartItems(models.Model):
-    cart_pk = models.IntegerField()
-    cart_item_id = models.IntegerField()
-    item_title = models.CharField(max_length=255)
-    item_price = models.DecimalField(max_digits=8, decimal_places=2)
-    item_quantity = models.IntegerField()
 
 class OrderedItem(models.Model):
-    item_pk = models.IntegerField()
     item_id = models.CharField(max_length=255)
     item_title = models.CharField(max_length=255)
     item_price = models.DecimalField(max_digits=8, decimal_places=2)
