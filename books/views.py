@@ -286,9 +286,9 @@ def notify(request):
                 )            
             checked_out_items = BookCartItems.objects.filter(cart_pk=pf_data.get('m_payment_id')).delete()
         else:
-            return False    
+            return HttpResponse(status=500)    
     else:
-        return False        
+        return HttpResponse(status=500)        
 
     return HttpResponse()
 
