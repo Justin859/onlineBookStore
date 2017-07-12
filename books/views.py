@@ -34,7 +34,8 @@ def get_client_ip(request):
 # Create your views here.
 
 def index(request):
-    host_ip = request.build_absolute_uri() 
+    host_ip = get_client_ip(request)
+
     number_of_items = BookCartItems.objects.filter(cart_pk=request.user.pk).count()
     books = Book.objects.order_by('book_title')
     categories = BOOK_CATEGORIES
@@ -254,30 +255,40 @@ def cancel(request):
 @csrf_exempt
 def notify(request):
 
-    host_ip = request.build_absolute_uri() 
+    host_ip = get_client_ip(request)
     pf_data = request.POST
+    valid_ip = ['41.74.179.194', '41.74.179.195', '41.74.179.196', '41.74.179.197', '41.74.179.200', '41.74.179.201', '41.74.179.203',
+                '41.74.179.204', '41.74.179.210', '41.74.179.211', '41.74.179.212', '41.74.179.217', '41.74.179.218', '197.97.145.156'] 
+    cart = BookCartItems.objects.filter(cart_pk=pf_data.get('m_payment_id'))
+    total_bill = 0
+    for item in cart:
+        total_bill += item.item_price
 
-    if pf_data.get('payment_status') == 'COMPLETE':
-        
-        new_order = Order.objects.create(
-            order_username = pf_data.get('name_first'),
-            order_user_pk = pf_data.get('m_payment_id'),
-            pf_payment_id = pf_data.get('pf_payment_id'),
-            amount_gross = pf_data.get('amount_gross'),
-            quantity_of_books = pf_data.get('custom_int1'),
-        )
-        checked_out_items = BookCartItems.objects.filter(cart_pk=pf_data.get('m_payment_id'))
-        for item in checked_out_items:
-            new_order_item = OrderedItem.objects.create(
-                order_payment_id = host_ip,
+    if host_ip in valid_ip:
+        if pf_data.get('payment_status') == 'COMPLETE' and pf_data.get('amount_gross') == total_bill:
+            
+            new_order = Order.objects.create(
+                order_username = pf_data.get('name_first'),
                 order_user_pk = pf_data.get('m_payment_id'),
-                item_id = item.cart_item_id,
-                item_title = item.item_title,
-                item_price = item.item_price,
-                item_quantity = item.item_quantity,
+                pf_payment_id = pf_data.get('pf_payment_id'),
+                amount_gross = pf_data.get('amount_gross'),
+                quantity_of_books = pf_data.get('custom_int1'),
             )
-
-        checked_out_items = BookCartItems.objects.filter(cart_pk=pf_data.get('m_payment_id')).delete()
+            checked_out_items = BookCartItems.objects.filter(cart_pk=pf_data.get('m_payment_id'))
+            for item in checked_out_items:
+                new_order_item = OrderedItem.objects.create(
+                    order_payment_id = pf_data.get('pf_payment_id'),
+                    order_user_pk = pf_data.get('m_payment_id'),
+                    item_id = item.cart_item_id,
+                    item_title = item.item_title,
+                    item_price = item.item_price,
+                    item_quantity = item.item_quantity,
+                )            
+            checked_out_items = BookCartItems.objects.filter(cart_pk=pf_data.get('m_payment_id')).delete()
+        else:
+            return False    
+    else:
+        return False        
 
     return HttpResponse()
 
