@@ -84,20 +84,22 @@ class Order(models.Model):
     quantity_of_books = models.IntegerField(default=0)
 
     def __str__(self):
-        return self.order_username + " " + str(self.created_at)
+        return self.order_username + "/"+ str(self.payment_id) + "/" + str(self.created_at)
     
     class META:
         verbose_name = 'Order'
         verbose_name_plural = 'Orders'
 
 class OrderedItem(models.Model):
+    order_payment_id = models.CharField(max_length=255, default='0')
+    order_user_pk = models.IntegerField(default=0, editable=False)
     item_id = models.CharField(max_length=255)
     item_title = models.CharField(max_length=255)
     item_price = models.DecimalField(max_digits=8, decimal_places=2)
     item_quantity = models.IntegerField()
 
     def __str__(self):
-        return self.item_title
+        return self.order_payment_id + " " + self.item_title
 
     class META:
         verbose_name = 'Ordered Item'

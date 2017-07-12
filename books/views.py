@@ -266,10 +266,11 @@ def notify(request):
             quantity_of_books = pf_data.get('custom_int1'),
         )
         checked_out_items = BookCartItems.objects.filter(cart_pk=pf_data.get('m_payment_id'))
-        
         for item in checked_out_items:
             new_order_item = OrderedItem.objects.create(
-                item_id = pf_data.get('m_payment_id'),
+                order_payment_id = pf_data.get('pf_payment_id'),
+                order_user_pk = pf_data.get('m_payment_id'),
+                item_id = item.cart_item_id,
                 item_title = item.item_title,
                 item_price = item.item_price,
                 item_quantity = item.item_quantity,
