@@ -34,11 +34,13 @@ def get_client_ip(request):
 # Create your views here.
 
 def index(request):
+    host_ip = get_client_ip(request)
+
     number_of_items = BookCartItems.objects.filter(cart_pk=request.user.pk).count()
     books = Book.objects.order_by('book_title')
     categories = BOOK_CATEGORIES
 
-    return render(request, 'index.html', {'number_of_items': number_of_items, 'categories': categories})
+    return render(request, 'index.html', {'host_ip': host_ip, 'number_of_items': number_of_items, 'categories': categories})
 
 def book_detail(request, book_title):
     number_of_items = BookCartItems.objects.filter(cart_pk=request.user.pk).count()
