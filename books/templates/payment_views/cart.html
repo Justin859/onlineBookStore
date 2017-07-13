@@ -3,6 +3,16 @@
 {% load book_feature %}
 
 {% block content %}
+{% if messages %}
+    {% for message in messages %}
+        <div class="alert alert-info alert-dismissible fade show" role="alert">
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+            <strong>{{ message }}</strong> 
+        </div>
+    {% endfor %}
+{% endif %}
 
 <h2>Your Shopping Cart</h2>
 <hr>
@@ -74,7 +84,7 @@
         </table>
         <br>
         <div class="d-flex justify-content-center cart-button">
-            <button class="btn btn-block btn-secondary">Check Out&nbsp;&nbsp;&nbsp;&nbsp;<i class="fa fa-shopping-cart fa-lg"></i></button>
+            <a href="/payment/" class="btn btn-block btn-secondary">Check Out&nbsp;&nbsp;&nbsp;&nbsp;<i class="fa fa-shopping-cart fa-lg"></i></a>
         </div>
     </div>
 </div>
