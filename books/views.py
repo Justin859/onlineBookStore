@@ -265,7 +265,7 @@ def notify(request):
         total_bill += item.item_price
 
     if host_ip in valid_ip:
-        if pf_data.get('payment_status') == 'COMPLETE' and pf_data.get('amount_gross') == total_bill:
+        if pf_data.get('payment_status') == 'COMPLETE' and float(pf_data.get('amount_gross').encode('utf-8')) == float(total_bill):
             
             new_order = Order.objects.create(
                 order_username = pf_data.get('name_first'),
@@ -286,7 +286,7 @@ def notify(request):
                 )            
             checked_out_items = BookCartItems.objects.filter(cart_pk=pf_data.get('m_payment_id')).delete()
         else:
-            return HttpResponse(status=500)    
+            return HttpResponse(status=400)    
     else:
         return HttpResponse(status=500)        
 

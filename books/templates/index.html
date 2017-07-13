@@ -3,6 +3,6 @@
 {% load book_feature %}
 {% block content %}
 
-{{host_ip}}
+{{host_ip}} {{request.user.pk}}
 
 {% endblock %}
