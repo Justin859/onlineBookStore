@@ -12,8 +12,8 @@ from django.contrib.postgres.search import SearchVector, TrigramDistance
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.core import serializers
 
-import detail_views.views
-import payment_views.views
+from .detail_views import views
+from .payment_views import views
 
 from django.views.decorators.csrf import csrf_exempt
 
