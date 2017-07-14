@@ -21,7 +21,6 @@
 <div class="container">
     <div class="row">
         {% for book in book_results %}
-        {% if book %}
         <div class="col-12 col-lg-4 search-item">
             <a href="/book/{{ book.book_title }}">
             <figure class="figure">
@@ -32,9 +31,6 @@
             </figure>
             </a>
         </div>
-        {% else %}
-        <div class="loader"></div> 
-        {% endif %}
         {% endfor %}
     </div>
 
