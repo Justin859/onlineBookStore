@@ -20,12 +20,14 @@
             {% for item in books %}
             <div class="col-6 col-md-3" align="center">
                 <a id="element" tabindex="{{forloop.count0}}" data-toggle="popover" data-trigger="hover" title="{{item.book_title}}" data-html="true" data-container="body" data-content="<p><b>Author: </b> {{item.book_author}}</p><p>{{item.book_description | shortner}}...</p>" href="/book/{{item.book_title}}">
-                    <img class="img-fluid img-thumbnail" src="../../{{ item.book_image | img_src }}">
+                    <img class="img-fluid img-thumbnail" src="{% static 'images' %}/{{ item.book_image | img_src }}">
                 </a>
             </div>
             {% endfor %}
         </div>
-        <div class="col-md-12 bookshelf-border">
+        <div class="row">
+            <div class="col-md-12 bookshelf-border">
+            </div>
         </div>
         {% endfor %}
     </div>

@@ -14,7 +14,7 @@
     <br>
     <div class="row d-flex justify-content-center">
         <div class="col-12 col-lg-4">
-            <img class="img-thumbnail img-fluid" src="../../{{ author.author_image | img_src }}">
+            <img class="img-thumbnail img-fluid" src="{% static 'images' %}/{{ author.author_image | img_src }}">
         </div>
     </div>
     <br />
@@ -45,7 +45,7 @@
         <div class="col-12 col-md-4 search-item">
             <a href="/book/{{ book.book_title }}">
             <figure class="figure">
-               <img class="figure-img" height="324" width="220" src="../../{{ book.book_image | img_src }}"> 
+               <img class="figure-img" height="324" width="220" src="{% static 'images' %}/{{ book.book_image | img_src }}"> 
                <figcaption class="figure-caption">{{ book.book_title }}</figcaption>
                <figcaption class="figure-caption">by - {{ book.book_author }}</figcaption>
                <figcaption class="figure-caption">R{{ book.book_price }}</figcaption>

@@ -11,7 +11,7 @@
         {% for author in author_result %}
         <div class="col-4">
             <a href="/author/{{ author.author_name }}">
-               <img class=" img-fluid" src="../../{{ author.author_image | img_src }}"> 
+               <img class=" img-fluid" src="{% static 'images' %}/{{ author.author_image | img_src }}"> 
                <figcaption class="figure-caption">{{ author.author_name }}</figcaption>
             </a>
         </div>

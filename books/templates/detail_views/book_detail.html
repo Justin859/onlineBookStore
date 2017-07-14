@@ -16,7 +16,7 @@
 <div class="container-fluid">
     <div class="row">
         <div class="col-12 col-md-6">
-                <img class="figure-img img-fluid" height="324" width="220" src=../../{{book.book_image | img_src}}>
+                <img class="figure-img img-fluid" height="324" width="220" src="{% static 'images' %}/{{book.book_image | img_src}}">
                 <form action="" method="post">
                     {% csrf_token %}
                     {% if book_in_cart %}

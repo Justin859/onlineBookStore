@@ -37,6 +37,7 @@ INSTALLED_APPS = (
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django.contrib.postgres',
+    'storages',    
     'books'
 )
 
@@ -85,7 +86,7 @@ DATABASES = {
         'USER': os.environ['POSTGRESQL_USERNAME'],
         'PASSWORD': os.environ['POSTGRESQL_PASSWORD'],
         'HOST': 'localhost',
-        'PORT': '5432',
+        'PORT': '5432', 
     }
 }
 
@@ -116,6 +117,14 @@ USE_I18N = True
 USE_L10N = True
 USE_TZ = True
 
+# Storage
+DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
+STATICFILES_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
+
+AWS_ACCESS_KEY_ID = os.environ['AWS_ACCESS_KEY_ID']
+AWS_SECRET_ACCESS_KEY = os.environ['AWS_SECRET_ACCESS_KEY']
+AWS_STORAGE_BUCKET_NAME = 'onlinebookstore'
+AWS_QUERYSTRING_AUTH = False
 
 # Update database configuration with $DATABASE_URL.
 db_from_env = dj_database_url.config(conn_max_age=500)
@@ -140,5 +149,5 @@ STATICFILES_DIRS = (
 
 # Simplified static file serving.
 # https://warehouse.python.org/project/whitenoise/
-STATICFILES_STORAGE = 'whitenoise.django.GzipManifestStaticFilesStorage'
+#STATICFILES_STORAGE = 'whitenoise.django.GzipManifestStaticFilesStorage'
 

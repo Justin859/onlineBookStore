@@ -42,7 +42,7 @@ class Book(models.Model):
     book_author = models.CharField(max_length=255)
     book_description = models.TextField(max_length=1000)
     book_category = models.CharField(max_length=255, choices=BOOK_CATEGORIES, default='Science fiction')
-    book_image = models.ImageField(upload_to=('books/static/images/book-images'), max_length=255)
+    book_image = models.ImageField(upload_to=('images/book-images'), max_length=255)
     book_recomended = models.BooleanField(default=False, choices=YES_OR_NO)
     book_rating = models.CharField(max_length=3, choices=NUMBER_OF_STARS)
     book_price = models.DecimalField(max_digits=8, decimal_places=2, default=0.00)
@@ -54,7 +54,7 @@ class Book(models.Model):
 class Author(models.Model):
     author_name = models.CharField(max_length=255)
     author_description = models.TextField()
-    author_image = models.ImageField(upload_to=('books/static/images/author-images'), max_length=255)
+    author_image = models.ImageField(upload_to=('images/author-images'), max_length=255)
     author_info = models.TextField()
 
     def __str__(self):
