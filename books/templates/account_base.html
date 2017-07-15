@@ -14,7 +14,6 @@
     <link rel="stylesheet" href="{% static 'vendor/fontawesome/bower_components/font-awesome/css/font-awesome.min.css' %}">
   </head>
   <body>
-
     <nav class="navbar navbar-toggleable-md navbar-inverse sticky-top" style="background-color: #333333;">
       <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
@@ -63,35 +62,8 @@
         </ul>
       </div>
     </nav>
-
-    <div class="container-fluid">
-      <div class="row">
-        <div class="col-12 col-lg-9">
-        {% block content %}
-        {% endblock %}
-        </div>
-        <div class="col-3 hidden-md-down side-menu">
-          <ul class="nav flex-column">
-            <li class="nav-item">
-              <a class="nav-link active" href="/library/">Library</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="/authors/">Authors</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="#collapseCategory" data-toggle="collapse" href="#collapseCategory" aria-expanded="false" aria-controls="collapseCategory">Categories<i class="pull-right">&plus;</i></a>
-            </li>
-              <div class="collapse" id="collapseCategory">
-              <hr>
-                {% for item in categories %}
-                <li class="nav-item"><a class="nav-link" href="/category/{{ item.0 }}/">{{item.0}}</a></li>
-                {% endfor %}
-              </div>
-          </ul>
-        </div>
-      </div>
-    </div>
-
+    {% block content %}
+    {% endblock %}
     <!-- jQuery first, then Tether, then Bootstrap JS. -->
     <script src="{% static 'vendor/bootstrap/bower_components/jquery/dist/jquery.min.js' %}"></script>
     <script src="{% static 'vendor/bootstrap/bower_components/tether/dist/js/tether.min.js' %}"></script>

@@ -1,0 +1,8 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load book_feature %}
+{% block content %}
+
+{{request.user.get_full_name}}
+
+{% endblock %}

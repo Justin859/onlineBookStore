@@ -30,6 +30,7 @@ DEBUG = False
 # Application definition
 
 INSTALLED_APPS = (
+    'books',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -37,8 +38,7 @@ INSTALLED_APPS = (
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django.contrib.postgres',
-    'storages',    
-    'books'
+    'storages',
 )
 
 SESSION_ENGINE = "django.contrib.sessions.backends.cached_db"
@@ -126,6 +126,15 @@ AWS_SECRET_ACCESS_KEY = os.environ['AWS_SECRET_ACCESS_KEY']
 AWS_STORAGE_BUCKET_NAME = 'onlinebookstore'
 AWS_QUERYSTRING_AUTH = False
 
+# Email
+
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = "smtp-mail.outlook.com"
+EMAIL_HOST_USER = "yourdeveloper@outlook.com"
+EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_HOST_PASSWORD')
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+DEFAULT_FROM_EMAIL = 'yourdeveloper@outlook.com'
 # Update database configuration with $DATABASE_URL.
 db_from_env = dj_database_url.config(conn_max_age=500)
 DATABASES['default'].update(db_from_env)

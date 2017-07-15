@@ -1,7 +1,7 @@
 from books.views import *
 from ..models import *
 from books.forms import *
-
+from django.contrib.auth.decorators import login_required
 from django.views.decorators.csrf import csrf_exempt
 
 # methods               
@@ -82,6 +82,7 @@ def view_that_asks_for_money(request):
          'categories': categories
     })
 
+@login_required
 def cart(request):
     cart_items = []
     cart = BookCartItems.objects.filter(cart_pk=request.user.pk)

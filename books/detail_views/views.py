@@ -25,7 +25,18 @@ def book_category(request, book_category):
     except EmptyPage:
         book_results = paginator.page(paginator.num_pages)
 
-    return render(request, 'detail_views/category.html', {'number_of_items': number_of_items, 'book_results': book_results, 'books': books, 'categories': categories, 'book_category': book_category, 'page': page, 'page_int': page_int , 'paginator': paginator, 'range': range(paginator.num_pages)})
+    return render(request, 'detail_views/category.html',
+    {
+        'number_of_items': number_of_items,
+        'book_results': book_results,
+        'books': books,
+        'categories': categories,
+        'book_category': book_category,
+        'page': page,
+        'page_int': page_int,
+        'paginator': paginator,
+        'range': range(paginator.num_pages)
+    })
 
 
 def book_detail(request, book_title):
@@ -50,7 +61,13 @@ def book_detail(request, book_title):
         )
         messages.success(request, "The book '" + book.book_title + "', Has been added to your cart")
         return HttpResponseRedirect('/book/' + book.book_title)
-    return render(request, 'detail_views/book_detail.html', {'number_of_items': number_of_items, 'book': book, 'categories': categories, 'book_in_cart': book_in_cart})
+    return render(request, 'detail_views/book_detail.html', 
+    {
+        'number_of_items': number_of_items,
+        'book': book,
+        'categories': categories,
+        'book_in_cart': book_in_cart
+    })
 
 def authors(request):
     number_of_items = BookCartItems.objects.filter(cart_pk=request.user.pk).count()
@@ -69,7 +86,17 @@ def authors(request):
     except EmptyPage:
         author_result = paginator.page(paginator.num_pages)
 
-    return render(request, 'detail_views/authors.html', {'number_of_items': number_of_items, 'authors': authors, 'author_result': author_result, 'categories': categories, 'page': page, 'page_int': page_int , 'paginator': paginator, 'range': range(paginator.num_pages)})
+    return render(request, 'detail_views/authors.html',
+    {
+        'number_of_items': number_of_items,
+        'authors': authors,
+        'author_result': author_result,
+        'categories': categories,
+        'page': page,
+        'page_int': page_int,
+        'paginator': paginator,
+        'range': range(paginator.num_pages)
+    })
 
 def author_detail(request, author_name):
     number_of_items = BookCartItems.objects.filter(cart_pk=request.user.pk).count()
@@ -90,7 +117,17 @@ def author_detail(request, author_name):
     except EmptyPage:
         book_results = paginator.page(paginator.num_pages)        
 
-    return render(request, 'detail_views/author_detail.html', {'number_of_items': number_of_items, 'author': author, 'categories': categories, 'book_results': book_results, 'page': page, 'page_int': page_int, 'paginator': paginator, 'range': range(paginator.num_pages)})
+    return render(request, 'detail_views/author_detail.html',
+    {
+        'number_of_items': number_of_items,
+        'author': author,
+        'categories': categories,
+        'book_results': book_results,
+        'page': page,
+        'page_int': page_int,
+        'paginator': paginator,
+        'range': range(paginator.num_pages)
+    })
 
 def library(request):
     number_of_items = BookCartItems.objects.filter(cart_pk=request.user.pk).count()
@@ -110,4 +147,13 @@ def library(request):
     except EmptyPage:
         book_results = paginator.page(paginator.num_pages)
       
-    return render(request, 'detail_views/library.html', {'number_of_items': number_of_items, 'book_results': book_results, 'categories': categories, 'page': page, 'page_int': page_int , 'paginator': paginator, 'range': range(paginator.num_pages)})    
+    return render(request, 'detail_views/library.html',
+    {
+        'number_of_items': number_of_items,
+        'book_results': book_results,
+        'categories': categories,
+        'page': page,
+        'page_int': page_int,
+        'paginator': paginator,
+        'range': range(paginator.num_pages)
+    })    
