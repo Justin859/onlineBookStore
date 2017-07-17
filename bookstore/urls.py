@@ -14,7 +14,8 @@ import books.account_views.views
 urlpatterns = [
     url(r'^$', books.views.index, name='index'),
     url(r'^', include('django.contrib.auth.urls')),
-    url(r'^accounts/profile', books.account_views.views.profile, name='profile'),
+    url(r'^accounts/signup/$', books.views.signUp, name='signup'),
+    url(r'^accounts/profile/$', books.account_views.views.profile, name='profile'),
     url(r'^admin/', include(admin.site.urls)),
     url(r'^book/(?P<book_title>[\w\s\']+)/$', books.detail_views.views.book_detail, name='book_detail'),
     url(r'^authors/$', books.detail_views.views.authors, name='authors'),

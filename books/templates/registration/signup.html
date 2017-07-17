@@ -1,0 +1,88 @@
+{% extends "account_base.html" %}
+{% load book_feature %}
+{% block content %}
+
+<div class="container" style="margin-top:2em; margin-bottom:2em;">
+    <div class="row justify-content-md-center">
+        <div class="col-12 col-lg-4">
+            <br>
+            {% if not user.is_authenticated %}
+            <h2>User Signup</h2>
+            {% else %}
+            <h2>You're logged in as - <small class="text-muted">{{request.user.get_full_name}}</small></h2>
+            {% endif %}
+            <hr>
+        </div>
+    </div>
+    <div class="row justify-content-md-center">
+        <div class="col-12 col-lg-4">
+        {% if not user.is_authenticated %}
+
+            <form method="post" action="/accounts/signup/">
+            {% csrf_token %}
+            {% if form.username.errors %}
+            <div class="form-group has-danger">
+                <label for="{{form.username.name}}">{{form.username.label}}</label>
+                <input type='text' class="form-control form-control-danger" name="username" aria-describedby="emailHelp" placeholder="Enter email" value="{{form.username.value | empty}}" required>
+                <div class="form-control-feedback"><small>{{form.username.errors.0}}</small></div>
+            </div>
+            {% else %}
+            <div class="form-group">
+                <label for="{{form.username.name}}">{{form.username.label}}</label>
+                <input type='text' class="form-control" name="username" aria-describedby="emailHelp" placeholder="Enter email" value="{{form.username.value | empty}}" required>
+            </div>
+            {% endif %}
+            {% if form.firstname.errors %}
+            <div class="form-group has-danger">
+                <label for="{{form.firstname.name}}">{{form.firstname.label}}</label>
+                <input type='text' class="form-control form-control-danger" name="firstname" aria-describedby="emailHelp" placeholder="first name" value="{{form.firstname.value | empty}}" required>
+                <div class="form-control-feedback"><small>{{form.firstname.errors.0}}</small></div>
+            </div>
+            {% else %}
+            <div class="form-group">
+                <label for="{{form.firstname.name}}">{{form.firstname.label}}</label>
+                <input type='text' class="form-control" name="firstname" aria-describedby="emailHelp" placeholder="first name" value="{{form.firstname.value | empty}}" required>
+            </div>
+            {% endif %}
+            {% if form.lastname.errors %}
+            <div class="form-group has-danger">
+                <label for="{{form.lastname.name}}">{{form.lastname.label}}</label>
+                <input type='text' class="form-control form-control-danger" name="lastname" aria-describedby="emailHelp" placeholder="last name" value="{{form.lastname.value | empty}}" required>
+                <div class="form-control-feedback"><small>{{form.lastname.errors.0}}</small></div>
+            </div>
+            {% else %}
+            <div class="form-group">
+                <label for="{{form.lastname.name}}">{{form.lastname.label}}</label>
+                <input type='text' class="form-control" name="lastname" aria-describedby="emailHelp" placeholder="last name" value="{{form.lastname.value | empty}}" required>
+            </div>
+            {% endif %}
+            <div class="form-group">
+                <label for="{{form.password1.name}}">{{form.password1.label}}</label>
+                <input type='password' class="form-control" name="password1" aria-describedby="emailHelp" placeholder="create password" value="{{form.password1.value | empty}}" required>
+            </div>
+            {% if form.non_field_errors %}
+            <div class="form-group has-danger">
+                <label for="{{form.password2.name}}">{{form.password2.label}}</label>
+                <input type='password' class="form-control form-control-danger" name="password2" aria-describedby="emailHelp" placeholder="re-enter password" value="{{form.password2.value | empty}}" required>
+                <div class="form-control-feedback"><small>{{form.non_field_errors.0}}</small></div>
+            </div>
+            {% else %}
+            <div class="form-group">
+                <label for="{{form.password2.name}}">{{form.password2.label}}</label>
+                <input type='password' class="form-control" name="password2" aria-describedby="emailHelp" placeholder="re-enter password" value="{{form.password2.value | empty}}" required>
+            </div>
+            {% endif %}
+            <div class="form-group">
+                <input class="form-control btn btn-success" type="submit" value="Create Account" />
+            </div>
+            </form>
+
+        </div>
+        {% else %}
+        <h4>Would you like to <a href="/logout/">Logout</a></h4>
+        {% endif %}
+    </div>
+</div>
+
+
+{% endblock %}

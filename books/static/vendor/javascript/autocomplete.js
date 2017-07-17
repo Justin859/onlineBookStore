@@ -19,7 +19,6 @@ $.ajax({
             },
             focus: function (event, ui) {
                           $(".ui-helper-hidden-accessible").hide();
-                          event.preventDefault();
                       },
             messages: {
                 noResults: '',

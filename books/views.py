@@ -17,7 +17,7 @@ from .payment_views import views
 
 from django.views.decorators.csrf import csrf_exempt
 
-from .forms import BookForm, CheckOutForm
+from .forms import BookForm, CheckOutForm, SignupForm
 from .models import *
 
 # Create your views here.
@@ -29,6 +29,21 @@ def index(request):
 
     return render(request, 'index.html', {'number_of_items': number_of_items, 'categories': categories})
 
+def signUp(request):
+    if request.method == 'POST':
+        form = SignupForm(request.POST)
+        if form.is_valid():
+            username = form.cleaned_data['username']
+            raw_password = form.cleaned_data['password1']
+            firstname = form.cleaned_data['firstname']
+            lastname = form.cleaned_data['lastname']
+            user = User.objects.create(username=username, first_name=firstname, last_name=lastname, email=username)
+            user.set_password(raw_password)
+            user.save()
+            return HttpResponseRedirect('/login/')
+    else:
+        form = SignupForm()
+    return render(request, 'registration/signup.html', {'form': form})
 
 def search(request):
     number_of_items = BookCartItems.objects.filter(cart_pk=request.user.pk).count()

@@ -38,3 +38,10 @@ def shortner(value):
     value = value[:25]
     value = " ".join(value)
     return value
+
+@register.filter('empty')
+def empty(value):
+    if value:
+        return value
+    else:
+        return ""    

@@ -1,6 +1,23 @@
 import urllib
+
 from django import forms
 from django.core.validators import MinValueValidator
+from django.core.exceptions import ValidationError
+from django.utils.translation import ugettext_lazy as _
+
+from django.contrib.auth.models import User
+
+# Custom validators
+
+def validate_user(value):
+    user = User.objects.filter(username=value)
+    if user:
+        raise ValidationError(
+            _('%(value)s already exists'),
+            params={'value': value},
+        )
+
+# Forms        
 
 class BookForm(forms.Form):
     book_id = forms.IntegerField()
@@ -18,3 +35,20 @@ class CheckOutForm(forms.Form):
      name_first = forms.CharField(widget=forms.HiddenInput())
      name_last = forms.CharField(widget=forms.HiddenInput())
      amount = forms.IntegerField()
+
+class SignupForm(forms.Form):
+    username = forms.EmailField(max_length=55, label='your email address', validators=[validate_user])
+    password1 = forms.CharField(max_length=255, label='create a password')
+    password2 = forms.CharField(max_length=255, label='re-enter password')
+    firstname = forms.CharField(min_length=2, max_length=255, label='your firstname')
+    lastname = forms.CharField(min_length=2, max_length=255, label='your lastname')
+
+    def clean(self):
+
+        password1 = self.cleaned_data.get('password1')
+        password2 = self.cleaned_data.get('password2')
+
+        if password1 and password1 != password2:
+            raise forms.ValidationError("Passwords don't match")
+
+        return self.cleaned_data

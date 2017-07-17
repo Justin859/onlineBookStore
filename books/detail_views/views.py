@@ -42,7 +42,7 @@ def book_category(request, book_category):
 def book_detail(request, book_title):
     number_of_items = BookCartItems.objects.filter(cart_pk=request.user.pk).count()
     categories = BOOK_CATEGORIES
-    book_cart = BookCartItems.objects.all()
+    book_cart = BookCartItems.objects.filter(cart_pk=request.user.pk)
     book_in_cart = False
 
     book = get_object_or_404(Book, book_title=book_title)
@@ -51,7 +51,7 @@ def book_detail(request, book_title):
         if book.book_title == book_item.item_title:
             book_in_cart = True
 
-    if request.method == 'POST':
+    if request.method == 'POST' and request.user.is_authenticated and book.book_quantity > 0:
         new_item = BookCartItems.objects.create(
             cart_pk = request.user.pk,
             cart_item_id = book.pk,
@@ -61,6 +61,11 @@ def book_detail(request, book_title):
         )
         messages.success(request, "The book '" + book.book_title + "', Has been added to your cart")
         return HttpResponseRedirect('/book/' + book.book_title)
+    elif request.method == 'POST' and not request.user.is_authenticated:
+        messages.warning(request, 'Please Login or Signup to add an item to your shopping cart')
+        return HttpResponseRedirect('/book/' + book.book_title)
+    elif request.method == 'POST' and not book.book_quantity > 0: 
+        return HttpResponse(status=500) 
     return render(request, 'detail_views/book_detail.html', 
     {
         'number_of_items': number_of_items,
